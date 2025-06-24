@@ -13,7 +13,7 @@ function Header() {
   return (
     <header className="relative bg-white shadow-sm" role="banner">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 relative">
+        <div className="flex items-center justify-between h-20 relative ">
           {/* logo */}
           <div className="absolute inset-x-0 top-0 flex justify-center pointer-events-none h-20">
             <div className="bg-[#fb9e22] text-footer px-3 py-3 rounded-b-md text-sm font-bold leading-tight text-center font-sans pointer-events-auto">
