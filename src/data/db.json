@@ -421,7 +421,7 @@
     {
       "id": 24,
       "title": "عقاید یک دلقک",
-      "authorId": " au21",
+      "authorId": "au21",
       "price": 190000,
       "category": "داستان و رمان خارجی",
       "subcategory": "درام",
@@ -649,7 +649,6 @@
     {
       "id": 36,
       "title": "بلندی‌های بادگیر",
-      "author": "امیلی برونته",
       "authorId": "au33",
       "price": 145000,
       "category": "داستان و رمان خارجی",
@@ -3271,7 +3270,7 @@
       "downloadLink": "https://drive.google.com/uc?export=download&id=185aUYb7ZKoaDMm9BNZqbBY1ESNXyT-xk"
     }
   ],
-  "authors": [
+  "author": [
     {
       "id": "au1",
       "name": "جمعی از نویسندگان",

@@ -1,39 +1,84 @@
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import BookCard from "./BookCard";
-import { useEffect, useState } from "react";
+import { BeatLoader } from "react-spinners";
+
+// ایمپورت کردن ماژول‌های Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 
+import BookCard from "./BookCard";
+import { Link } from "react-router-dom";
+
 function PopularBooks() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [popularBooks, setPopularBooks] = useState([]);
 
   useEffect(() => {
-    const fetchBooks = async () => {
+    const fetchAndCombineData = async () => {
       try {
-        const res = await fetch("http://localhost:8000/books");
-        const data = await res.json();
+        setLoading(true);
+        setError(null);
 
-        // filtered(popular-books)
+        // Step 1: Fetch the list of books and authors
+        const [booksRes, authorsRes] = await Promise.all([
+          fetch(
+            "http://localhost:3001/books?_sort=rating&_order=desc&_limit=10"
+          ),
+          fetch("http://localhost:3001/author"),
+        ]);
 
-        const filtered = data.filter((book) => book.rating >= 4.8).slice(0, 6);
+        if (!booksRes.ok || !authorsRes.ok) {
+          throw new Error("خطا در ارتباط با سرور");
+        }
 
-        setPopularBooks(filtered);
+        const booksData = await booksRes.json();
+        const authorsData = await authorsRes.json();
+
+        // Step 2: Create a Map of authors for quick lookup
+        // This allows for finding an author quickly instead of repeatedly searching an array
+        const authorsMap = new Map(
+          authorsData.map((author) => [author.id, author])
+        );
+
+        // Step 3: Join the data
+        // We add the complete author object to each book
+        const combinedBooks = booksData.map((book) => ({
+          ...book,
+          author: authorsMap.get(book.authorId),
+        }));
+
+        setPopularBooks(combinedBooks);
       } catch (error) {
         console.error(error.message);
+        setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchBooks();
+
+    fetchAndCombineData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <BeatLoader color="#FB9E22" />
+      </div>
+    );
+  }
+  if (error) {
+    return <div className="text-red-500 text-center py-12">{error}</div>;
+  }
 
   return (
     <section className="py-12 bg-[#fdfdfd]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className=" flex items-center space-x-1 justify-between text-right mb-10 text-[#333]">
-          <div className="flex items-center space-x-1  font-bold">
-            <div className="w-2 h-10 bg-amber-500 "></div>
+          <div className="flex items-center space-x-1 font-bold">
+            <div className="w-2 h-8 bg-amber-500"></div>
             <h1 className="text-2xl"> پرطرفدارترین کتاب ها</h1>
           </div>
           <Link className="flex space-x-1  items-center" to="/popularbook">
@@ -43,11 +88,10 @@ function PopularBooks() {
         </div>
 
         <div className="relative">
-          <button className="swiper-button-prev-custom absolute top-1/2 -right-4 z-10 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100 transition">
+          <button className="swiper-button-prev-custom absolute top-1/2 -translate-y-1/2 -right-4 z-10 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100 transition disabled:opacity-50">
             <ChevronRight size={20} />
           </button>
-
-          <button className="swiper-button-next-custom absolute top-1/2 -left-4 z-10 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100 transition">
+          <button className="swiper-button-next-custom absolute top-1/2 -translate-y-1/2 -left-4 z-10 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100 transition disabled:opacity-50">
             <ChevronLeft size={20} />
           </button>
 
@@ -60,19 +104,14 @@ function PopularBooks() {
               prevEl: ".swiper-button-prev-custom",
             }}
             breakpoints={{
-              640: {
-                slidesPerView: 2,
-              },
-              768: {
-                slidesPerView: 3,
-              },
-              1024: {
-                slidesPerView: 4,
-              },
+              640: { slidesPerView: 2 },
+              768: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+              1280: { slidesPerView: 5 },
             }}
           >
             {popularBooks.map((book) => (
-              <SwiperSlide book={book} key={book.id}>
+              <SwiperSlide key={book.id}>
                 <BookCard book={book} />
               </SwiperSlide>
             ))}

@@ -2,8 +2,12 @@ import { BookOpen, FileAudio, StarIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function BookCard({ book }) {
+  // guard clause
+  if (!book) return null;
+
+  const authorName = book.author ? book.author.name : "نویسنده نامشخص";
   return (
-    <Link to="/details">
+    <Link to={`/books/${book.id}`}>
       <div className="flex flex-col w-40 bg-white rounded-md shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden mx-auto ">
         <img
           src={book.image}
@@ -23,7 +27,7 @@ function BookCard({ book }) {
             ) : (
               <BookOpen size={14} className="text-gray-400" />
             )}
-            {book.author}
+            {authorName}
           </p>
 
           <div className="mt-2 space-y-0.5">
