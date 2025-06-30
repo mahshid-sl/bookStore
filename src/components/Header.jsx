@@ -1,14 +1,25 @@
 import { useState } from "react";
 import { categories } from "../data/bookCategories";
 import { ChevronDown, Menu, ShoppingBag, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import MegaMenu from "./MegaMenu";
+
+const navMenuItems = [
+  { title: "کتاب الکترونیک", categories: categories },
+  { title: "کتاب صوتی", categories: categories },
+];
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const [itemCount, setItemCount] = useState(2); // change later just for testing ui
+
   // close mobile menu===
   const closeMobileMenu = () => setMenuOpen(false);
+
+  // common nav link classes
+  const navLinkClasses =
+    "hover:text-[#fb9e22] flex items-center gap-1 transition-colors duration-300";
 
   return (
     <header className="relative bg-white shadow-sm" role="banner">
@@ -34,11 +45,7 @@ function Header() {
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen(!menuOpen)}
             >
-              {menuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
 
             {/* desktop : navbar*/}
@@ -47,55 +54,52 @@ function Header() {
               role="navigation"
               aria-label="منوی اصلی"
             >
-              <Link
+              <NavLink
                 to="/"
-                className="hover:text-[#fb9e22] flex items-center gap-1"
+                end
+                className={({ isActive }) =>
+                  `${navLinkClasses} ${isActive ? "text-[#fb9e22]" : ""}`
+                }
               >
                 خانه
-              </Link>
+              </NavLink>
 
               {/* ===electronic books megamenu ===*/}
-              <div className="group relative pb-5 -mb-5">
-                <button
-                  type="button"
-                  className="hover:text-[#fb9e22] flex gap-1 items-center h-20"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  کتاب الکترونیک <ChevronDown size={18} />
-                </button>
-                <MegaMenu categories={categories} />
-              </div>
 
-              <div className="group relative pb-5 -mb-5">
-                <button
-                  type="button"
-                  className="hover:text-[#fb9e22] flex gap-1 items-center h-20"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  کتاب صوتی <ChevronDown size={18} />
-                </button>
-                <MegaMenu categories={categories} />
-              </div>
+              {navMenuItems.map((item) => (
+                <div key={item.title} className="group relative">
+                  <button type="button" className={`${navLinkClasses} h-20`}>
+                    {item.title} <ChevronDown size={18} />
+                  </button>
+                  <MegaMenu categories={item.categories} />
+                </div>
+              ))}
 
-              <Link
-                to="/contact-us"
-                className="hover:text-[#fb9e22] flex items-center gap-1"
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  `${navLinkClasses} ${isActive ? "text-[#fb9e22]" : ""}`
+                }
               >
                 تماس با ما
-              </Link>
+              </NavLink>
             </nav>
           </div>
 
           {/* ===left-col ===*/}
           <div className="flex items-center gap-4">
-            <button
-              className="text-[#333333] hover:text-[#fb9e22]"
+            <Link
+              to="/cart"
+              className="relative text-[#333333] hover:text-[#fb9e22] transition-colors duration-300"
               aria-label="مشاهده سبد خرید"
             >
-              <ShoppingBag className="h-5 w-5" />
-            </button>
+              <ShoppingBag size={24} />
+              {itemCount > 0 && (
+                <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-orange-300 text-xs font-bold text-[#333333]">
+                  {itemCount}
+                </span>
+              )}
+            </Link>
 
             <div className="hidden md:flex text-xs items-center gap-2 border-2 border-[#fb9e22] rounded-md px-3 py-1">
               <button className="text-[#333333] hover:text-[#fb9e22]">
