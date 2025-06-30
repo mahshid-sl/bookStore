@@ -1,3 +1,4 @@
+import AuthorCarousel from "../components/AuthorCarousel";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import PopularBooks from "../components/PopularBooks";
@@ -9,6 +10,7 @@ function HomePage() {
       <SearchBar />
       <Hero />
       <PopularBooks />
+      <AuthorCarousel />
     </div>
   );
 }

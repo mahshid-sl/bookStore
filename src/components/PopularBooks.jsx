@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BeatLoader } from "react-spinners";
 
-// ایمپورت کردن ماژول‌های Swiper
+// import swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 
 import BookCard from "./BookCard";
-import { Link } from "react-router-dom";
+import Loading from "./Loading";
+import Error from "./Error";
 
 function PopularBooks() {
   const [loading, setLoading] = useState(true);
@@ -53,7 +55,7 @@ function PopularBooks() {
         setPopularBooks(combinedBooks);
       } catch (error) {
         console.error(error.message);
-        setError(error.message);
+        setError("خطا در بارگذاری داده‌ها");
       } finally {
         setLoading(false);
       }
@@ -62,20 +64,12 @@ function PopularBooks() {
     fetchAndCombineData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <BeatLoader color="#FB9E22" />
-      </div>
-    );
-  }
-  if (error) {
-    return <div className="text-red-500 text-center py-12">{error}</div>;
-  }
+  if (loading) return <Loading />;
+  if (error) return <Error>{error}</Error>;
 
   return (
     <section className="py-12 bg-[#fdfdfd]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className=" flex items-center space-x-1 justify-between text-right mb-10 text-[#333]">
           <div className="flex items-center space-x-1 font-bold">
             <div className="w-2 h-8 bg-amber-500"></div>

@@ -12,7 +12,7 @@ function BookCard({ book }) {
         <img
           src={book.image}
           alt={book.title}
-          className="w-full h-48 object-cover"
+          className="w-full h-48 object-fill"
         />
 
         <div className="p-3 text-center space-y-1">
