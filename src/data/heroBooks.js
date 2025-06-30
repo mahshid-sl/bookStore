@@ -17,4 +17,10 @@ export const heroBooks = [
     author: "جرج اورول",
     img: "./images/hero-3.png",
   },
+  {
+    id: "b4",
+    title: "جاسوس",
+    author: "جوزف هریس",
+    img: "./images/hero-4.png",
+  },
 ];
