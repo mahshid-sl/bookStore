@@ -14,7 +14,6 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [itemCount, setItemCount] = useState(2); // change later just for testing ui
-  console.log(setItemCount);
 
   // close mobile menu===
   const closeMobileMenu = () => setMenuOpen(false);
@@ -54,7 +53,7 @@ function Header() {
 
             {/* desktop : navbar*/}
             <nav
-              relative
+              relative="true"
               className="hidden md:flex items-center gap-6 text-[#333333] text-sm font-medium
               "
               role="navigation"

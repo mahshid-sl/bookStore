@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { BeatLoader } from "react-spinners";
 
 // import swiper
 import { Swiper, SwiperSlide } from "swiper/react";
