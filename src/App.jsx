@@ -7,6 +7,7 @@ import Cart from "./pages/Cart";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Profile from "./pages/Profile";
+import NewArrivalsPage from "./pages/NewArrivalsPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="register" element={<RegisterPage />} />
           <Route path="profile" element={<Profile />} />
           <Route path="popularbook" element={<PopularBookPage />} />
+          <Route path="newbook" element={<NewArrivalsPage />} />
           <Route path="details" element={<BookDetails />} />
         </Routes>
       </div>
