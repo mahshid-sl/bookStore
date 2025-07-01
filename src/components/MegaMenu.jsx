@@ -2,7 +2,7 @@ import { BookOpen, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function MegaMenu({ categories, isMobile = false, closeMenu }) {
+function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
   //=== mobile state ===
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -64,7 +64,9 @@ function MegaMenu({ categories, isMobile = false, closeMenu }) {
   //=== RENDER FOR DESKTOP (MEGA MENU) ===
   return (
     <div
-      className="absolute top-full right-0 hidden group-hover:flex bg-white shadow-lg rounded-lg p-6 z-50 w-[1050px] text-sm text-[#333333] gap-2"
+      className="absolute top-full right-0 z-50 w-[1050px] gap-2 rounded-lg bg-white p-6 text-sm text-[#333333] shadow-lg
+      flex transition-all duration-300 ease-in-out
+      transform  invisible group-hover:translate-y-0 group-hover:visible"
       role="menu"
       aria-label="دسته بندی کتاب‌ها"
     >
@@ -80,7 +82,7 @@ function MegaMenu({ categories, isMobile = false, closeMenu }) {
             {cat.subcategories.map((sub, idx) => (
               <li key={idx} role="menuitem">
                 <Link
-                  to={`/category/${createSlug(sub)}`}
+                  to={`/${pathPrefix}/${createSlug(sub)}`}
                   className="block p-1 hover:text-[#fb9e22] transition-colors"
                 >
                   {sub}
