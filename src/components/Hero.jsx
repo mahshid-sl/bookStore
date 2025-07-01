@@ -1,6 +1,6 @@
 import HeroSlider from "./HeroSlider";
 
-function Hero() {
+function Hero({ onScrollToPopular }) {
   return (
     <main className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-1 shadow-md ">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -20,7 +20,10 @@ function Hero() {
               هر کتاب، یک سفر جدید! همین امروز سفر خود را شروع کنید.
             </p>
           </div>
-          <button className="bg-[#fb9e22] hover:bg-orange-500 text-[#333333] px-10 py-3 rounded-md text-lg font-semibold transition-all shadow-lg hover:shadow-orange-500/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 mr-12 mt-5">
+          <button
+            onClick={onScrollToPopular}
+            className="bg-[#fb9e22] hover:bg-orange-500 text-[#333333] px-10 py-3 rounded-md text-lg font-semibold transition-all shadow-lg hover:shadow-orange-500/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 mr-12 mt-5"
+          >
             خرید کنید
           </button>
         </div>

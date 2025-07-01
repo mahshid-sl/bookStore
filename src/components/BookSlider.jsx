@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,7 +10,7 @@ import BookCard from "./BookCard";
 import Loading from "./Loading";
 import Error from "./Error";
 
-function BookSlider({ title, viewAllLink, fetchUrl }) {
+const BookSlider = React.forwardRef(({ title, viewAllLink, fetchUrl }, ref) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -64,7 +64,7 @@ function BookSlider({ title, viewAllLink, fetchUrl }) {
   if (error) return <Error>{error}</Error>;
 
   return (
-    <section className="py-12 bg-[#fdfdfd]">
+    <section ref={ref} className="py-12 bg-[#fdfdfd]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className=" flex items-center space-x-1 justify-between text-right mb-10 text-[#333]">
           <div className="flex items-center space-x-1 font-bold">
@@ -112,6 +112,6 @@ function BookSlider({ title, viewAllLink, fetchUrl }) {
       </div>
     </section>
   );
-}
+});
 
 export default BookSlider;
