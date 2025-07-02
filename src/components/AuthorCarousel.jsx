@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { BeatLoader } from "react-spinners";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation } from "swiper/modules";

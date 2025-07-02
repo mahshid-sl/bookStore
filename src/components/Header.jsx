@@ -23,12 +23,15 @@ function Header() {
     "hover:text-[#fb9e22] flex items-center gap-1 transition-colors duration-300";
 
   return (
-    <header className="relative bg-white shadow-sm" role="banner">
+    <header
+      className="relative bg-white shadow-sm overflow-hidden"
+      role="banner "
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 relative ">
           {/*=== logo === */}
           <div className="absolute inset-x-0 top-0 flex justify-center pointer-events-none h-20">
-            <div className="bg-[#fb9e22] text-footer px-3 py-3 rounded-b-md text-sm font-bold leading-tight text-center font-sans pointer-events-auto">
+            <div className="bg-[#fb9e22] px-3 py-3 rounded-b-md text-sm font-bold leading-tight text-center font-sans pointer-events-auto">
               <Link
                 to="/"
                 className="flex flex-col justify-center items-center gap-1 "
@@ -54,7 +57,8 @@ function Header() {
             {/* desktop : navbar*/}
             <nav
               relative="true"
-              className="hidden md:flex items-center gap-6 text-[#333333] text-sm font-medium
+              className="hidden md:flex items-center
+              md:gap-4 lg:gap-6 text-[#333333] md:text-xs md:font-semibold lg:text-sm font-medium
               "
               role="navigation"
               aria-label="منوی اصلی"

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -10,7 +9,7 @@ import BookCard from "./BookCard";
 import Loading from "./Loading";
 import Error from "./Error";
 
-const BookSlider = React.forwardRef(({ title, viewAllLink, fetchUrl }, ref) => {
+const BookSlider = React.forwardRef(({ fetchUrl }, ref) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -66,21 +65,7 @@ const BookSlider = React.forwardRef(({ title, viewAllLink, fetchUrl }, ref) => {
   return (
     <section ref={ref} className="py-12 bg-[#fdfdfd]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-        <div className=" flex items-center space-x-1 justify-between text-right mb-10 text-[#333]">
-          <div className="flex items-center space-x-1 font-bold">
-            <div className="w-2 h-8 bg-amber-500"></div>
-            {/* 3. dynamic title*/}
-            <h1 className="text-2xl">{title}</h1>
-          </div>
-          {/* dynamic link*/}
-          <Link className="flex space-x-1 items-center" to={viewAllLink}>
-            <span className="text-sm"> مشاهده همه </span>
-            <ChevronLeft size={20} />
-          </Link>
-        </div>
-
-        {/* بقیه کد UI اسلایدر بدون تغییر باقی می‌ماند */}
-        <div className="relative">
+        <div className="relative overflow-hidden">
           <button className="swiper-button-prev-custom absolute top-1/2 -translate-y-1/2 -right-4 z-10 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100 transition disabled:opacity-50">
             <ChevronRight size={20} />
           </button>
