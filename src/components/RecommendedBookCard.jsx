@@ -40,7 +40,7 @@ function RecommendedBookCard({ book }) {
   if (!book) return null;
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-xs mx-auto">
+    <div className="flex flex-col items-center justify-center w-full max-w-xs mx-auto ">
       <div className="w-1/2 aspect-[2/3] bg-white rounded-md shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden z-10">
         <img
           src={book.image}
