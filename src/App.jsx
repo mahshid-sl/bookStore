@@ -8,6 +8,8 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Profile from "./pages/Profile";
 import NewArrivalsPage from "./pages/NewArrivalsPage";
+import RecommendedBooksPage from "./pages/RecommendedBooksPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="popularbook" element={<PopularBookPage />} />
           <Route path="newbook" element={<NewArrivalsPage />} />
           <Route path="details" element={<BookDetails />} />
+          <Route path="recommended" element={<RecommendedBooksPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </BrowserRouter>

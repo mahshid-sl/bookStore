@@ -5,6 +5,7 @@ import Hero from "../components/Hero";
 import NewestBooks from "../components/NewestBooks";
 import PopularBooks from "../components/PopularBooks";
 import SearchBar from "../components/SearchBar";
+import RecommendedBooks from "../components/RecommendedBooks";
 
 function HomePage() {
   // creating ref
@@ -23,6 +24,7 @@ function HomePage() {
       <PopularBooks ref={popularBooksRef} />
       <AuthorCarousel />
       <NewestBooks />
+      <RecommendedBooks />
     </div>
   );
 }
