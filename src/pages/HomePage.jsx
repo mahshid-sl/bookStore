@@ -6,6 +6,7 @@ import NewestBooks from "../components/NewestBooks";
 import PopularBooks from "../components/PopularBooks";
 import SearchBar from "../components/SearchBar";
 import RecommendedBooks from "../components/RecommendedBooks";
+import CtaBanner from "../components/CtaBanner";
 
 function HomePage() {
   // creating ref
@@ -25,6 +26,7 @@ function HomePage() {
       <AuthorCarousel />
       <NewestBooks />
       <RecommendedBooks />
+      <CtaBanner />
     </div>
   );
 }
