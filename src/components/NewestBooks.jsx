@@ -20,7 +20,11 @@ function NewestBooks() {
 
       {/* tablet and desktop view===== */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-8">
-        <div className="hidden md:flex bg-black p-4 rounded-tl-2xl rounded-bl-2xl flex-shrink-0 ">
+        <div
+          className="hidden md:flex bg-black p-4 rounded-tl-2xl rounded-bl-2xl flex-shrink-0 outline-2
+        outline-amber-500
+        outline-offset-4 "
+        >
           <div
             className="flex flex-col items-center justify-between lg:w-56 
         h-72 md:w-48 "
