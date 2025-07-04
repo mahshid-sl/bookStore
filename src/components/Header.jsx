@@ -13,7 +13,7 @@ const navMenuItems = [
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const [itemCount, setItemCount] = useState(2); // change later just for testing ui
+  const [itemCount] = useState(2); // change later just for testing ui
 
   // close mobile menu===
   const closeMobileMenu = () => setMenuOpen(false);
