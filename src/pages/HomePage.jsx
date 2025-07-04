@@ -20,15 +20,12 @@ function HomePage() {
 
   return (
     <div>
-      <Header />
-      <SearchBar />
       <Hero onScrollToPopular={handleScrollToPopular} />
       <PopularBooks ref={popularBooksRef} />
       <AuthorCarousel />
       <NewestBooks />
       <RecommendedBooks />
       <CtaBanner />
-      <Footer />
     </div>
   );
 }

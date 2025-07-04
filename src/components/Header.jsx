@@ -23,10 +23,7 @@ function Header() {
     "hover:text-[#fb9e22] flex items-center gap-1 transition-colors duration-300";
 
   return (
-    <header
-      className="relative bg-white shadow-sm overflow-hidden"
-      role="banner "
-    >
+    <header className="relative bg-white shadow-sm  z-50" role="banner ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 relative ">
           {/*=== logo === */}

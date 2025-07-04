@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
-  //=== mobile state ===
+  //=== state for mobile accordion ===
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleSubmenu = (index) => {
@@ -15,7 +15,9 @@ function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
     return text.toLowerCase().replace(/\s+/g, "-");
   };
 
-  //=== RENDER FOR MOBILE (ACCORDION) ===
+  //============================================
+  //=== RENDER FOR MOBILE (ACCORDION)
+  //============================================
   if (isMobile) {
     return (
       <div className="flex flex-col gap-4 py-4">
@@ -23,9 +25,8 @@ function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
           <div key={index}>
             <button
               onClick={() => toggleSubmenu(index)}
-              className="flex justify-between items-center w-full text-[#333333] font-bold text-base py-2"
+              className="flex justify-between items-center w-full text-gray-800 font-bold text-base py-2"
               aria-expanded={openIndex === index}
-              aria-controls={`submenu-mobile-${index}`}
             >
               <div className="flex items-center gap-2">
                 <BookOpen size={18} /> {cat.title}
@@ -38,7 +39,6 @@ function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
               />
             </button>
             <ul
-              id={`submenu-mobile-${index}`}
               className={`overflow-hidden transition-all duration-300 ${
                 openIndex === index ? "max-h-96" : "max-h-0"
               }`}
@@ -48,7 +48,7 @@ function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
                   <Link
                     to={`/category/${createSlug(sub)}`}
                     onClick={() => closeMenu && closeMenu()}
-                    className="block py-2 pr-8 hover:text-[#fb9e22] cursor-pointer"
+                    className="block py-2 pr-8 text-gray-600 hover:text-amber-500"
                   >
                     {sub}
                   </Link>
@@ -61,37 +61,46 @@ function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
     );
   }
 
-  //=== RENDER FOR DESKTOP (MEGA MENU) ===
+  //============================================
+  //=== RENDER FOR DESKTOP (MEGA MENU)
+  //============================================
   return (
     <div
-      className="absolute top-full right-0 z-50 w-[1050px] gap-2 rounded-lg bg-white p-6 text-sm text-[#333333] shadow-lg
-      flex transition-all duration-300 ease-in-out
-      transform  invisible group-hover:translate-y-0 group-hover:visible"
+      className="
+        absolute top-full left-0 right-0 z-50
+        opacity-0 invisible group-hover:opacity-100 group-hover:visible
+        transform -translate-y-2 group-hover:translate-y-0
+        transition-all duration-300 ease-in-out
+        pointer-events-none group-hover:pointer-events-auto
+      "
       role="menu"
-      aria-label="دسته بندی کتاب‌ها"
     >
-      {categories.map((cat, index) => (
-        <div key={index} role="none" className="min-w-[200px] flex-shrink-0">
-          <h3
-            className="flex gap-2 font-bold text-[#333333] my-6"
-            role="menuitem"
-          >
-            <BookOpen size={18} /> {cat.title}
-          </h3>
-          <ul className="space-y-1" role="menu">
-            {cat.subcategories.map((sub, idx) => (
-              <li key={idx} role="menuitem">
-                <Link
-                  to={`/${pathPrefix}/${createSlug(sub)}`}
-                  className="block p-1 hover:text-[#fb9e22] transition-colors"
-                >
-                  {sub}
-                </Link>
-              </li>
-            ))}
-          </ul>
+      <div className="bg-white shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+          {categories.map((cat, index) => (
+            <div key={index} role="none">
+              <h3
+                className="flex items-center gap-2 font-bold text-gray-800 mb-4"
+                role="menuitem"
+              >
+                <BookOpen size={18} /> {cat.title}
+              </h3>
+              <ul className="space-y-2" role="menu">
+                {cat.subcategories.map((sub, idx) => (
+                  <li key={idx} role="menuitem">
+                    <Link
+                      to={`/${pathPrefix}/${createSlug(sub)}`}
+                      className="block p-1 text-gray-600 hover:text-amber-500 transition-colors"
+                    >
+                      {sub}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   );
 }
