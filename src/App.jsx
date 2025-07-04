@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import PopularBookPage from "./pages/PopularBookPage";
 import BookDetails from "./pages/BookDetails";
 import ContactUs from "./pages/ContactUs";
+import AboutUs from "./pages/AboutUs";
 import Cart from "./pages/Cart";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="contact" element={<ContactUs />} />
+          <Route path="aboutus" element={<AboutUs />} />
           <Route path="cart" element={<Cart />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />

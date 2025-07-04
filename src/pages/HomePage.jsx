@@ -7,6 +7,7 @@ import PopularBooks from "../components/PopularBooks";
 import SearchBar from "../components/SearchBar";
 import RecommendedBooks from "../components/RecommendedBooks";
 import CtaBanner from "../components/CtaBanner";
+import Footer from "../components/Footer";
 
 function HomePage() {
   // creating ref
@@ -27,6 +28,7 @@ function HomePage() {
       <NewestBooks />
       <RecommendedBooks />
       <CtaBanner />
+      <Footer />
     </div>
   );
 }
