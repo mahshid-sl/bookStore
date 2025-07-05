@@ -4,7 +4,7 @@ function AuthorCard({ author }) {
   if (!author) return null;
 
   return (
-    <Link to={`/authors/${author.id}`}>
+    <Link to={`/author/${author.id}`}>
       <div className="flex flex-col w-64 aspect-[4/5] rounded-md shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden mx-auto border border-gray-300">
         <img
           src={author.image}

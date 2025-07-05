@@ -73,10 +73,14 @@ function Header() {
               {/* ===books megamenu ===*/}
               {navMenuItems.map((item) => (
                 <div key={item.title} className="group">
-                  <button type="button" className={`${navLinkClasses} h-20`}>
+                  <Link
+                    to={`/${item.pathPrefix}`}
+                    type="button"
+                    className={`${navLinkClasses} h-20`}
+                  >
                     {item.title} <ChevronDown size={18} />
-                  </button>
-                  {/* 2. به مگامنو، شناسه‌ی مسیر و دسته‌بندی مخصوص خودش را پاس می‌دهیم */}
+                  </Link>
+
                   <MegaMenu
                     categories={item.categories}
                     pathPrefix={item.pathPrefix}

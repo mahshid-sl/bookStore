@@ -12,6 +12,10 @@ import NewArrivalsPage from "./pages/NewArrivalsPage";
 import RecommendedBooksPage from "./pages/RecommendedBooksPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AppLayout from "./components/AppLayOut";
+import AuthorPage from "./pages/AuthorPage";
+import CategoryPage from "./pages/CategoryPage";
+import AudiobooksPage from "./pages/AudiobooksPage";
+import EbooksPage from "./pages/EbooksPage";
 
 function App() {
   return (
@@ -20,6 +24,26 @@ function App() {
         <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<HomePage />} />
+
+            {/* pages for audio/ebook  */}
+            <Route path="/audiobooks" element={<AudiobooksPage />} />
+            <Route path="/ebooks" element={<EbooksPage />} />
+            {/* ========= */}
+
+            {/* dynamic route for categories */}
+
+            <Route path="/:bookType/:categorySlug" element={<CategoryPage />} />
+            <Route
+              path="/:bookType/:categorySlug/:subcategorySlug"
+              element={<CategoryPage />}
+            />
+
+            <Route path="/books/:bookId/" element={<BookDetails />} />
+            <Route path="/author/:authorId" element={<AuthorPage />} />
+
+            {/* ========== */}
+
+            {/* other pages=== */}
             <Route path="contact" element={<ContactUs />} />
             <Route path="aboutus" element={<AboutUs />} />
             <Route path="cart" element={<Cart />} />
@@ -28,8 +52,9 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="popularbook" element={<PopularBookPage />} />
             <Route path="newbook" element={<NewArrivalsPage />} />
-            <Route path="details" element={<BookDetails />} />
+
             <Route path="recommended" element={<RecommendedBooksPage />} />
+
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

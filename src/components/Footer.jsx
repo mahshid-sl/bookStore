@@ -6,6 +6,7 @@ import {
   Navigation,
   Youtube,
   Instagram,
+  Send,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -98,7 +99,7 @@ function Footer() {
               <Instagram />
             </Link>
             <Link to="#" className="text-gray-400 hover:text-amber-400">
-              <Navigation />
+              <Send />
             </Link>
             <Link to="#" className="text-gray-400 hover:text-amber-400">
               <Youtube />

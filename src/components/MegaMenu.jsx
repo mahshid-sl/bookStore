@@ -46,7 +46,9 @@ function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
               {cat.subcategories.map((sub, idx) => (
                 <li key={idx}>
                   <Link
-                    to={`/category/${createSlug(sub)}`}
+                    to={`/${pathPrefix}/${createSlug(cat.title)}/${createSlug(
+                      sub
+                    )}`}
                     onClick={() => closeMenu && closeMenu()}
                     className="block py-2 pr-8 text-gray-600 hover:text-amber-500"
                   >
@@ -79,17 +81,20 @@ function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 md:grid-cols-4 gap-8">
           {categories.map((cat, index) => (
             <div key={index} role="none">
-              <h3
+              <Link
+                to={`/${pathPrefix}/${createSlug(cat.title)}`}
                 className="flex items-center gap-2 font-bold text-gray-800 mb-4"
                 role="menuitem"
               >
                 <BookOpen size={18} /> {cat.title}
-              </h3>
+              </Link>
               <ul className="space-y-2" role="menu">
                 {cat.subcategories.map((sub, idx) => (
                   <li key={idx} role="menuitem">
                     <Link
-                      to={`/${pathPrefix}/${createSlug(sub)}`}
+                      to={`/${pathPrefix}/${createSlug(cat.title)}/${createSlug(
+                        sub
+                      )}`}
                       className="block p-1 text-gray-600 hover:text-amber-500 transition-colors"
                     >
                       {sub}
