@@ -10,6 +10,7 @@ import {
   MessageCircleQuestion,
   Star,
 } from "lucide-react";
+import BookTabs from "../components/BookTabs";
 
 function BookDetails() {
   const [book, setBook] = useState(null);
@@ -211,6 +212,9 @@ function BookDetails() {
           </div>
         </div>
       </div>
+
+      {/* tabs component */}
+      <BookTabs book={book} />
     </div>
   );
 }
