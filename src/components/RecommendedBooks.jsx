@@ -23,7 +23,7 @@ function RecommendedBooks() {
             <h1 className="text-sm md:text-xl lg:text-2xl ">معرفی کتاب</h1>
           </div>
 
-          <Link className="flex space-x-1 items-center" to={"/popularbook"}>
+          <Link className="flex space-x-1 items-center" to={"/recommended"}>
             <span className="text-sm"> مشاهده همه </span>
             <ChevronLeft size={20} />
           </Link>
