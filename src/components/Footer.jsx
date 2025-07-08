@@ -3,7 +3,6 @@ import {
   PhoneCall,
   Rocket,
   Mail,
-  Navigation,
   Youtube,
   Instagram,
   Send,

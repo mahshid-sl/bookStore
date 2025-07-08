@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -8,56 +8,10 @@ import { Navigation } from "swiper/modules";
 import BookCard from "./BookCard";
 import Loading from "./Loading";
 import Error from "./Error";
+import useBookData from "../hooks/useBookData";
 
 const BookSlider = React.forwardRef(({ fetchUrl }, ref) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const [books, setBooks] = useState([]);
-
-  useEffect(() => {
-    const fetchAndCombineData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Step 1: Fetch the list of books and authors
-        const [booksRes, authorsRes] = await Promise.all([
-          fetch(fetchUrl),
-          fetch("http://localhost:3001/author"),
-        ]);
-
-        if (!booksRes.ok || !authorsRes.ok) {
-          throw new Error("خطا در ارتباط با سرور");
-        }
-
-        const booksData = await booksRes.json();
-        const authorsData = await authorsRes.json();
-
-        // Step 2: Create a Map of authors for quick lookup
-        // This allows for finding an author quickly instead of repeatedly searching an array
-        const authorsMap = new Map(
-          authorsData.map((author) => [author.id, author])
-        );
-
-        // Step 3: Join the data
-        // We add the complete author object to each book
-        const combinedBooks = booksData.map((book) => ({
-          ...book,
-          author: authorsMap.get(book.authorId),
-        }));
-
-        setBooks(combinedBooks);
-      } catch (error) {
-        console.error(error.message);
-        setError("خطا در بارگذاری داده‌ها");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAndCombineData();
-  }, [fetchUrl]);
+  const { books, loading, error } = useBookData(fetchUrl);
 
   if (loading) return <Loading />;
   if (error) return <Error>{error}</Error>;
