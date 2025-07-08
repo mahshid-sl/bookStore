@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import AppLayout from "./components/AppLayOut";
 import Loading from "./components/Loading";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Lazy load the following pages
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -24,6 +25,7 @@ const EbooksPage = lazy(() => import("./pages/EbooksPage"));
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div dir="rtl" className="app bg-white font-vazirNormal ">
         <Suspense fallback={<Loading />}>
           <Routes>
