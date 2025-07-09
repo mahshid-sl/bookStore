@@ -3,8 +3,7 @@ import { Suspense, lazy } from "react";
 import AppLayout from "./components/AppLayOut";
 import Loading from "./components/Loading";
 import ScrollToTop from "./components/ScrollToTop";
-import { ToastBar, Toaster } from "react-hot-toast";
-import FaqPage from "./pages/FaqPage";
+import { Toaster } from "react-hot-toast";
 
 // Lazy load the following pages
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -23,6 +22,8 @@ const AuthorPage = lazy(() => import("./pages/AuthorPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const AudiobooksPage = lazy(() => import("./pages/AudiobooksPage"));
 const EbooksPage = lazy(() => import("./pages/EbooksPage"));
+const FaqPage = lazy(() => import("./pages/FaqPage"));
+const DownloadGuidePage = lazy(() => import("./pages/DownloadGuidePage"));
 
 function App() {
   return (
@@ -67,7 +68,7 @@ function App() {
               <Route path="newbook" element={<NewArrivalsPage />} />
               <Route path="recommended" element={<RecommendedBooksPage />} />
               <Route path="faq" element={<FaqPage />} />
-
+              <Route path="shipping-info" element={<DownloadGuidePage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
