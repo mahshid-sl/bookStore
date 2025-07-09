@@ -4,6 +4,7 @@ import AppLayout from "./components/AppLayOut";
 import Loading from "./components/Loading";
 import ScrollToTop from "./components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
+import PurchaseGuidePage from "./pages/PurchaseGuidePage";
 
 // Lazy load the following pages
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -69,6 +70,7 @@ function App() {
               <Route path="recommended" element={<RecommendedBooksPage />} />
               <Route path="faq" element={<FaqPage />} />
               <Route path="shipping-info" element={<DownloadGuidePage />} />
+              <Route path="how-to-order" element={<PurchaseGuidePage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>

@@ -6,10 +6,40 @@ import {
   Youtube,
   Instagram,
   Send,
+  ArrowUp,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Footer() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    // Check scroll position on mount
+    const toggleVisibility = () => {
+      // if user scrolled more than 300px, show the button
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []);
+
   return (
     <footer className="bg-black text-white relative mt-24">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,7 +113,7 @@ function Footer() {
               href="tel:0213213211"
               className="flex items-center gap-2 hover:text-amber-400"
             >
-              <PhoneCall size={16} /> <span>۰۲۱-۱۲۳۴۵۶۷۸</span>
+              <PhoneCall size={16} /> <span>021-3213211</span>
             </a>
             <a
               href="mailto:BookStore@info"
@@ -131,6 +161,16 @@ function Footer() {
           کلیه حقوق مادی و معنوی سایت نزد فروشگاه آنلاین بوک استور محفوظ است.
         </p>
       </div>
+      {/* back to top button */}
+      {isVisible && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 left-8 bg-amber-500 text-white p-3 rounded-full shadow-lg hover:bg-amber-600 transition-transform hover:scale-110 focus:outline-none z-50"
+          aria-label="برو به بالا"
+        >
+          <ArrowUp size={24} />
+        </button>
+      )}
     </footer>
   );
 }
