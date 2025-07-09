@@ -83,7 +83,7 @@ function Footer() {
               href="tel:0213213211"
               className="flex items-center gap-2 hover:text-amber-400"
             >
-              <PhoneCall size={16} /> <span>021-3213211</span>
+              <PhoneCall size={16} /> <span>۰۲۱-۱۲۳۴۵۶۷۸</span>
             </a>
             <a
               href="mailto:BookStore@info"

@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react";
 import AppLayout from "./components/AppLayOut";
 import Loading from "./components/Loading";
 import ScrollToTop from "./components/ScrollToTop";
+import { ToastBar, Toaster } from "react-hot-toast";
 
 // Lazy load the following pages
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -26,6 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <Toaster />
       <div dir="rtl" className="app bg-white font-vazirNormal ">
         <Suspense fallback={<Loading />}>
           <Routes>
