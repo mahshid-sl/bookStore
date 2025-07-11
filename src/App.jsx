@@ -25,6 +25,7 @@ const AudiobooksPage = lazy(() => import("./pages/AudiobooksPage"));
 const EbooksPage = lazy(() => import("./pages/EbooksPage"));
 const FaqPage = lazy(() => import("./pages/FaqPage"));
 const DownloadGuidePage = lazy(() => import("./pages/DownloadGuidePage"));
+const SubscriptionPage = lazy(() => import("./pages/SubscriptionPage"));
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
               <Route path="faq" element={<FaqPage />} />
               <Route path="shipping-info" element={<DownloadGuidePage />} />
               <Route path="how-to-order" element={<PurchaseGuidePage />} />
+              <Route path="subscribe" element={<SubscriptionPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
