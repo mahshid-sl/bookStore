@@ -4,7 +4,6 @@ import AppLayout from "./components/AppLayOut";
 import Loading from "./components/Loading";
 import ScrollToTop from "./components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
-import PurchaseGuidePage from "./pages/PurchaseGuidePage";
 
 // Lazy load the following pages
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -26,6 +25,7 @@ const EbooksPage = lazy(() => import("./pages/EbooksPage"));
 const FaqPage = lazy(() => import("./pages/FaqPage"));
 const DownloadGuidePage = lazy(() => import("./pages/DownloadGuidePage"));
 const SubscriptionPage = lazy(() => import("./pages/SubscriptionPage"));
+const PurchaseGuidePage = lazy(() => import("./pages/PurchaseGuidePage"));
 
 function App() {
   return (
