@@ -4,6 +4,7 @@ import AppLayout from "./components/AppLayOut";
 import Loading from "./components/Loading";
 import ScrollToTop from "./components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
+import AuthProvider from "./contexts/AuthContext";
 
 // Lazy load the following pages
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -29,56 +30,58 @@ const PurchaseGuidePage = lazy(() => import("./pages/PurchaseGuidePage"));
 
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Toaster />
-      <div dir="rtl" className="app bg-white font-vazirNormal ">
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route element={<AppLayout />}>
-              <Route path="/" element={<HomePage />} />
+    <AuthProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Toaster />
+        <div dir="rtl" className="app bg-white font-vazirNormal ">
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route element={<AppLayout />}>
+                <Route path="/" element={<HomePage />} />
 
-              {/* pages for audio/ebook  */}
-              <Route path="/audiobooks" element={<AudiobooksPage />} />
-              <Route path="/ebooks" element={<EbooksPage />} />
-              {/* ========= */}
+                {/* pages for audio/ebook  */}
+                <Route path="/audiobooks" element={<AudiobooksPage />} />
+                <Route path="/ebooks" element={<EbooksPage />} />
+                {/* ========= */}
 
-              {/* dynamic route for categories */}
+                {/* dynamic route for categories */}
 
-              <Route
-                path="/:bookType/:categorySlug"
-                element={<CategoryPage />}
-              />
-              <Route
-                path="/:bookType/:categorySlug/:subcategorySlug"
-                element={<CategoryPage />}
-              />
+                <Route
+                  path="/:bookType/:categorySlug"
+                  element={<CategoryPage />}
+                />
+                <Route
+                  path="/:bookType/:categorySlug/:subcategorySlug"
+                  element={<CategoryPage />}
+                />
 
-              <Route path="/books/:bookId/" element={<BookDetails />} />
-              <Route path="/author/:authorId" element={<AuthorPage />} />
+                <Route path="/books/:bookId/" element={<BookDetails />} />
+                <Route path="/author/:authorId" element={<AuthorPage />} />
 
-              {/* ========== */}
+                {/* ========== */}
 
-              {/* other pages=== */}
-              <Route path="contact" element={<ContactUs />} />
-              <Route path="aboutus" element={<AboutUs />} />
-              <Route path="cart" element={<Cart />} />
-              <Route path="login" element={<LoginPage />} />
-              <Route path="register" element={<RegisterPage />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="popularbook" element={<PopularBookPage />} />
-              <Route path="newbook" element={<NewArrivalsPage />} />
-              <Route path="recommended" element={<RecommendedBooksPage />} />
-              <Route path="faq" element={<FaqPage />} />
-              <Route path="shipping-info" element={<DownloadGuidePage />} />
-              <Route path="how-to-order" element={<PurchaseGuidePage />} />
-              <Route path="subscribe" element={<SubscriptionPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </Suspense>
-      </div>
-    </BrowserRouter>
+                {/* other pages=== */}
+                <Route path="contact" element={<ContactUs />} />
+                <Route path="aboutus" element={<AboutUs />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="register" element={<RegisterPage />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="popularbook" element={<PopularBookPage />} />
+                <Route path="newbook" element={<NewArrivalsPage />} />
+                <Route path="recommended" element={<RecommendedBooksPage />} />
+                <Route path="faq" element={<FaqPage />} />
+                <Route path="shipping-info" element={<DownloadGuidePage />} />
+                <Route path="how-to-order" element={<PurchaseGuidePage />} />
+                <Route path="subscribe" element={<SubscriptionPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

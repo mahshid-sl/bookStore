@@ -1,13 +1,11 @@
 import { LogIn, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 function AuthButtons() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
 
-  const handleLogedOut = () => setIsLoggedIn(false);
-
-  if (isLoggedIn) {
+  if (isAuthenticated) {
     return (
       <>
         {/* Mobile View: User Profile Icon */}
@@ -23,10 +21,10 @@ function AuthButtons() {
             to="/profile"
             className="text-[#333333] hover:text-[#fb9e22] px-3 py-1 border-2 border-transparent rounded-md"
           >
-            حساب کاربری
+            {user ? user.email : "حساب کاربری"}
           </Link>
           <button
-            onClick={handleLogedOut}
+            onClick={logout}
             className="bg-[#fb9e22] text-white hover:bg-orange-500 rounded-md px-3 py-1.5"
           >
             خروج

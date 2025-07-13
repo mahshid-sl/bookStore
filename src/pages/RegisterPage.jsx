@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
+import { useAuth } from "../contexts/AuthContext";
 
 // A simple SVG component for Google Icon
 const GoogleIcon = () => (
@@ -26,13 +27,19 @@ const GoogleIcon = () => (
 );
 
 function RegisterPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real app, you would handle login logic here
-    toast.success("شما با موفقیت وارد شدید!");
+    if (!email || !password) return;
+
+    register({ email, password });
+    toast.success("شما با موفقیت ثبت‌نام شدید!");
     setTimeout(() => {
       navigate("/"); // Redirect to homepage after a short delay
     }, 1500);
@@ -74,6 +81,8 @@ function RegisterPage() {
                   required
                   className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
                   placeholder="ایمیل"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
@@ -88,6 +97,8 @@ function RegisterPage() {
                   required
                   className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
                   placeholder="رمز عبور"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
                   type="button"
