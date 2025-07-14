@@ -15,7 +15,7 @@ const AboutUs = lazy(() => import("./pages/AboutUs"));
 const Cart = lazy(() => import("./pages/Cart"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
-const Profile = lazy(() => import("./pages/Profile"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const NewArrivalsPage = lazy(() => import("./pages/NewArrivalsPage"));
 const RecommendedBooksPage = lazy(() => import("./pages/RecommendedBooksPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
@@ -67,7 +67,7 @@ function App() {
                 <Route path="cart" element={<Cart />} />
                 <Route path="login" element={<LoginPage />} />
                 <Route path="register" element={<RegisterPage />} />
-                <Route path="profile" element={<Profile />} />
+                <Route path="profile" element={<ProfilePage />} />
                 <Route path="popularbook" element={<PopularBookPage />} />
                 <Route path="newbook" element={<NewArrivalsPage />} />
                 <Route path="recommended" element={<RecommendedBooksPage />} />

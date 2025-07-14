@@ -32,8 +32,11 @@ function AuthProvider({ children }) {
     dispatch({ type: "LOGIN", payload: { email } });
   }
 
-  async function register({ email, password }) {
-    dispatch({ type: "REGISTER", payload: { email, password } });
+  async function register({ name, lastName, email, password }) {
+    dispatch({
+      type: "REGISTER",
+      payload: { name, lastName, email, password },
+    });
   }
 
   function logout() {

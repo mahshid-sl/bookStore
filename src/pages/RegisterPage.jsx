@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Lock, Mail, Eye, EyeOff } from "lucide-react";
+import { Lock, Mail, Eye, EyeOff, User } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -27,6 +27,8 @@ const GoogleIcon = () => (
 );
 
 function RegisterPage() {
+  const [name, setName] = useState("");
+  const [lastName, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -36,9 +38,12 @@ function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email || !password) return;
+    if (!name || !lastName || !email || !password) {
+      toast.error("لطفاً تمام فیلدها را پر کنید.");
+      return;
+    }
 
-    register({ email, password });
+    register({ name, lastName, email, password });
     toast.success("شما با موفقیت ثبت‌نام شدید!");
     setTimeout(() => {
       navigate("/"); // Redirect to homepage after a short delay
@@ -70,6 +75,38 @@ function RegisterPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+              {/* name Input */}
+              <div className="relative">
+                <User className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+                  placeholder="نام"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+
+              {/* lastName Input */}
+              <div className="relative">
+                <User className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+                  placeholder="نام خانوادگی"
+                  value={lastName}
+                  onChange={(e) => setLastname(e.target.value)}
+                />
+              </div>
+
               {/* Email Input */}
               <div className="relative">
                 <Mail className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
