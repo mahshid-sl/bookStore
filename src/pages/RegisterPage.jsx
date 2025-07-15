@@ -32,22 +32,28 @@ function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name || !lastName || !email || !password) {
       toast.error("لطفاً تمام فیلدها را پر کنید.");
       return;
     }
 
-    register({ name, lastName, email, password });
-    toast.success("شما با موفقیت ثبت‌نام شدید!");
-    setTimeout(() => {
-      navigate("/"); // Redirect to homepage after a short delay
-    }, 1500);
+    setIsLoading(true);
+    const isSuccess = await register({ name, lastName, email, password });
+    setIsLoading(false);
+
+    if (isSuccess) {
+      toast.success("ثبت‌نام شما با موفقیت انجام شد. به بوک استور خوش آمدید!");
+      setTimeout(() => {
+        navigate("/"); // Redirect to homepage after a short delay
+      }, 1500);
+    }
   };
 
   return (

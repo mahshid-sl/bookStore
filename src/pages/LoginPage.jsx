@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
-import toast from "react-hot-toast";
 import { useAuth } from "../contexts/AuthContext";
 
 // A simple SVG component for Google Icon
@@ -41,7 +40,6 @@ function LoginPage() {
     if (!email || !password) return;
 
     login({ email, password });
-    toast.success("شما با موفقیت وارد شدید!");
 
     setTimeout(() => {
       navigate("/"); // Redirect to homepage after a short delay
