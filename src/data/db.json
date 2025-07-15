@@ -4109,5 +4109,47 @@
       "image": "/images/authors/agatha_christie.jpg"
     }
   ],
+  "users": [
+    {
+      "id": 1,
+      "name": "مهشید",
+      "lastName": "سلیمانی",
+      "email": "mahshid@example.com",
+      "password": "12345",
+      "bio": "عاشق کتاب‌های علمی-تخیلی و قهوه دمی.",
+      "favoriteGenre": "علمی-تخیلی",
+      "avatar": null
+    },
+    {
+      "id": 2,
+      "name": "آرش",
+      "lastName": "امینی",
+      "email": "arash@example.com",
+      "password": "54321",
+      "bio": "عاشق کتاب‌های ادبیات کلاسیک و قهوه دمی.",
+      "favoriteGenre": "ادبیات کلاسیک",
+      "avatar": null
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord001",
+      "userId": 1,
+      "date": "1403-04-25T18:00:00Z",
+      "totalPrice": 225000,
+      "items": [
+        {
+          "bookId": 1,
+          "title": "هفت مونولوگ برای آغاز دیالوگ",
+          "price": 110000
+        },
+        {
+          "bookId": 86,
+          "title": "زن‌ها مردها را از دست می‌دهند، چرا؟",
+          "price": 115000
+        }
+      ]
+    }
+  ],
   "comments": []
 }
