@@ -4102,114 +4102,15 @@
   ],
   "users": [
     {
-      "id": "1",
-      "name": "مهشید",
+      "id": "4cf9",
+      "name": "مهشید ",
       "lastName": "سلیمانی",
-      "email": "mahshid@example.com",
+      "email": "mahshid.sl56@gmail.com",
       "password": "12345",
-      "bio": "عاشق کتاب‌های علمی-تخیلی و قهوه دمی.",
-      "favoriteGenre": "علمی-تخیلی",
-      "avatar": null
-    },
-    {
-      "id": "2",
-      "name": "آرش",
-      "lastName": "امینی",
-      "email": "arash@example.com",
-      "password": "54321",
-      "bio": "عاشق کتاب‌های ادبیات کلاسیک و قهوه دمی.",
-      "favoriteGenre": "ادبیات کلاسیک",
-      "avatar": null
-    },
-    {
-      "id": "3c10",
-      "name": "هلما",
-      "lastName": "امیری",
-      "email": "helma@example.com",
-      "password": "123",
       "wishlist": [],
       "bio": "",
-      "favoriteGenre": ""
-    },
-    {
-      "id": "6645",
-      "name": "mohammad",
-      "lastName": "sg",
-      "email": "mohamd@info.com",
-      "password": "mm22",
-      "wishlist": [],
-      "bio": "",
-      "favoriteGenre": ""
-    },
-    {
-      "id": "da69",
-      "name": "mahya fatemeh",
-      "lastName": " hassan abi",
-      "email": "mahya.abi@gmail.com",
-      "password": "1234",
-      "wishlist": [],
-      "bio": "",
-      "favoriteGenre": ""
-    },
-    {
-      "id": "c139",
-      "name": "ali",
-      "lastName": "rezaii",
-      "email": "ali@example.com",
-      "password": "lksjd",
-      "wishlist": [],
-      "bio": "",
-      "favoriteGenre": ""
-    },
-    {
-      "id": "0f32",
-      "name": "حسام",
-      "lastName": "انوری",
-      "email": "hesam@gmail.com",
-      "password": "hesam78",
-      "wishlist": [],
-      "bio": "",
-      "favoriteGenre": ""
-    },
-    {
-      "id": "c3c4",
-      "name": "reza",
-      "lastName": "mohammdi",
-      "email": "reza@example.com",
-      "password": "rr56",
-      "wishlist": [],
-      "bio": "",
-      "favoriteGenre": ""
-    },
-    {
-      "id": "8e79",
-      "name": "mahshid",
-      "lastName": "hakimi",
-      "email": "hakimi@gmail.com",
-      "password": "8890",
-      "wishlist": [],
-      "bio": "",
-      "favoriteGenre": ""
-    },
-    {
-      "id": "c337",
-      "name": "shahin",
-      "lastName": "sabeti",
-      "email": "shahin34@gmail.com",
-      "password": "89098",
-      "wishlist": [],
-      "bio": "",
-      "favoriteGenre": ""
-    },
-    {
-      "id": "bb9c",
-      "name": "امید ",
-      "lastName": "سلیمانی",
-      "email": "omidsg@gmail.com",
-      "password": "123456",
-      "wishlist": [],
-      "bio": "",
-      "favoriteGenre": ""
+      "favoriteGenre": "",
+      "avatar": ""
     }
   ],
   "orders": [

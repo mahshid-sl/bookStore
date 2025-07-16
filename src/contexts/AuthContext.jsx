@@ -12,10 +12,8 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case "LOGIN":
-      return { ...state, isAuthenticated: true, user: action.payload };
-
     case "REGISTER":
-      // Save user data to localStorage
+    case "UPDATE_USER":
       localStorage.setItem("user", JSON.stringify(action.payload));
       return { ...state, isAuthenticated: true, user: action.payload };
 
@@ -24,14 +22,16 @@ function reducer(state, action) {
       return { ...state, isAuthenticated: false, user: null };
 
     default:
-      return state;
+      throw new Error("Unknown action type");
   }
 }
 
 // AuthProvider component
 function AuthProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { isAuthenticated, user } = state;
+  const [{ isAuthenticated, user }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   useEffect(() => {
     // Check for user in localStorage
@@ -90,6 +90,7 @@ function AuthProvider({ children }) {
           wishlist: [],
           bio: "",
           favoriteGenre: "",
+          avatar: "",
         }),
       });
 
@@ -116,12 +117,32 @@ function AuthProvider({ children }) {
     dispatch({ type: "LOGOUT" });
   }
 
+  async function updateUser(userId, updatedData) {
+    try {
+      const res = await fetch(`http://localhost:3001/users/${userId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (!res.ok) throw new Error();
+
+      const data = await res.json();
+      dispatch({ type: "UPDATE_USER", payload: data });
+      return true;
+    } catch {
+      toast.error("خطا در به‌روزرسانی اطلاعات.");
+      return false;
+    }
+  }
+
   const value = {
     user,
     isAuthenticated,
     login,
     register,
     logout,
+    updateUser,
   };
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;

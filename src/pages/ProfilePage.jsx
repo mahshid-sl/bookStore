@@ -7,13 +7,21 @@ import {
   ChevronLeft,
   Camera,
   Edit,
+  Check,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-// کامپوننت قابل استفاده مجدد برای فیلدهای فرم
-function ProfileInput({ id, label, type = "text", value, icon, onChange }) {
+function ProfileInput({
+  id,
+  label,
+  type = "text",
+  value,
+  onChange,
+  isEditing,
+  onEditToggle,
+}) {
   return (
     <div className="relative">
       <input
@@ -23,6 +31,7 @@ function ProfileInput({ id, label, type = "text", value, icon, onChange }) {
         placeholder=" "
         value={value}
         onChange={onChange}
+        disabled={!isEditing}
       />
       <label
         htmlFor={id}
@@ -30,19 +39,20 @@ function ProfileInput({ id, label, type = "text", value, icon, onChange }) {
       >
         {label}
       </label>
-      {icon && (
-        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-          {icon}
-        </div>
-      )}
+      <button
+        type="button"
+        onClick={() => onEditToggle(id)}
+        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-amber-500"
+      >
+        {isEditing ? <Check size={16} /> : <Edit size={16} />}
+      </button>
     </div>
   );
 }
 
 function ProfilePage() {
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, logout, isAuthenticated, updateUser } = useAuth();
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -50,6 +60,14 @@ function ProfilePage() {
     bio: "",
     favoriteGenre: "",
   });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [editingField, setEditingField] = useState(null);
+
+  // for manage image
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -77,10 +95,26 @@ function ProfilePage() {
     }));
   }
 
-  const handleSubmit = (e) => {
+  const handleEditToggle = (fieldId) => {
+    setEditingField((prevField) => (prevField === fieldId ? null : fieldId));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted!", formData);
-    toast.success("تغییرات با موفقیت ذخیره شد!");
+    setIsLoading(true);
+
+    const dataToUpdate = { ...formData };
+    if (imagePreview) {
+      dataToUpdate.avatar = imagePreview;
+    }
+
+    const success = await updateUser(user.id, dataToUpdate);
+    setIsLoading(false);
+    if (success) {
+      toast.success("تغییرات با موفقیت ذخیره شد!");
+      setEditingField(null);
+      setImagePreview(null);
+    }
   };
 
   function handleLogout() {
@@ -93,6 +127,22 @@ function ProfilePage() {
     // A simple loading state while user data is being fetched from context
     return <div>در حال بارگذاری اطلاعات کاربر...</div>;
   }
+
+  const handleCameraClick = () => {
+    fileInputRef.current.click();
+  };
+
+  // function to handle image upload
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="bg-gray-50">
@@ -164,10 +214,20 @@ function ProfilePage() {
               onSubmit={handleSubmit}
               className="bg-white p-8 rounded-lg shadow-md space-y-8"
             >
+              {/* hidden file input for avatar upload */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleFileChange}
+              />
+
               <div className="flex items-center gap-6 pb-6 border-b">
                 <div className="relative">
                   <img
                     src={
+                      imagePreview ||
                       user.avatar ||
                       `https://ui-avatars.com/api/?name=${formData.name}+${formData.lastName}&background=fb9e22&color=fff`
                     }
@@ -175,6 +235,7 @@ function ProfilePage() {
                     className="w-24 h-24 object-cover rounded-full"
                   />
                   <button
+                    onClick={handleCameraClick}
                     type="button"
                     className="absolute -bottom-2 -left-2 bg-white p-2 rounded-full border shadow-sm hover:bg-gray-100"
                   >
@@ -198,6 +259,9 @@ function ProfilePage() {
                   value={formData.name}
                   onChange={handleInputChange}
                   icon={<Edit size={16} />}
+                  disabled={isLoading}
+                  isEditing={editingField === "name"}
+                  onEditToggle={handleEditToggle}
                 />
                 <ProfileInput
                   id="lastName"
@@ -205,6 +269,9 @@ function ProfilePage() {
                   value={formData.lastName}
                   onChange={handleInputChange}
                   icon={<Edit size={16} />}
+                  disabled={isLoading}
+                  isEditing={editingField === "lastName"}
+                  onEditToggle={handleEditToggle}
                 />
                 <ProfileInput
                   id="email"
@@ -213,6 +280,9 @@ function ProfilePage() {
                   value={formData.email}
                   onChange={handleInputChange}
                   icon={<Edit size={16} />}
+                  disabled={isLoading}
+                  isEditing={editingField === "email"}
+                  onEditToggle={handleEditToggle}
                 />
                 <ProfileInput
                   id="favoriteGenre"
@@ -220,6 +290,9 @@ function ProfilePage() {
                   value={formData.favoriteGenre}
                   onChange={handleInputChange}
                   icon={<Edit size={16} />}
+                  disabled={isLoading}
+                  isEditing={editingField === "favoriteGenre"}
+                  onEditToggle={handleEditToggle}
                 />
               </div>
 
@@ -229,6 +302,9 @@ function ProfilePage() {
                   label="درباره من"
                   value={formData.bio}
                   onChange={handleInputChange}
+                  disabled={isLoading}
+                  isEditing={editingField === "bio"}
+                  onEditToggle={handleEditToggle}
                 />
               </div>
 
@@ -236,8 +312,9 @@ function ProfilePage() {
                 <button
                   type="submit"
                   className="bg-amber-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-amber-600 transition"
+                  disabled={isLoading}
                 >
-                  ذخیره تغییرات
+                  {isLoading ? "در حال ذخیره..." : "ذخیره تغییرات"}
                 </button>
               </div>
             </form>
