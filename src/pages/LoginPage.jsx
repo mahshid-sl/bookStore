@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -26,24 +27,30 @@ const GoogleIcon = () => (
 );
 
 function LoginPage() {
-  //for managing form input
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // Form handling
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
   const [showPassword, setShowPassword] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
+    // destructure data
+    const { email, password } = data;
+    // guard clause
     if (!email || !password) return;
 
-    login({ email, password });
-
-    setTimeout(() => {
-      navigate("/"); // Redirect to homepage after a short delay
-    }, 1500);
+    // login user
+    const isSuccess = await login({ email, password });
+    if (isSuccess) {
+      setTimeout(() => {
+        navigate("/"); // Redirect to homepage after a short delay
+      }, 1500);
+    }
   };
 
   return (
@@ -70,44 +77,64 @@ function LoginPage() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-              {/* Email Input */}
-              <div className="relative">
-                <Mail className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
-                  placeholder="ایمیل"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+            {/* Form Inputs */}
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
+              <div>
+                {/* Email Input */}
+                <div className="relative">
+                  <Mail className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+                    placeholder="ایمیل"
+                    {...register("email", {
+                      required: "ایمیل الزامی است",
+                      pattern: {
+                        value: /^\S+@\S+$/i,
+                        message: "ایمیل نامعتبر است",
+                      },
+                    })}
+                  />
+                </div>
+                {errors.email && (
+                  <p className="mt-1 text-xs text-red-500 text-right">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
-
               {/* Password Input */}
-              <div className="relative">
-                <Lock className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="current-password"
-                  required
-                  className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
-                  placeholder="رمز عبور"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
+              <div>
+                <div className="relative">
+                  <Lock className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+                    placeholder="رمز عبور"
+                    {...register("password", {
+                      required: "رمز عبور الزامی است",
+                      minLength: {
+                        value: 6,
+                        message: "رمز عبور باید حداقل 6 کاراکتر باشد",
+                      },
+                    })}
+                  />
+                  <button
+                    onClick={() => setShowPassword(!showPassword)}
+                    type="button"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+                {errors.password && (
+                  <p className="mt-1 text-xs text-red-500 text-right">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
 
               <div className="flex items-center justify-between">
@@ -137,9 +164,10 @@ function LoginPage() {
               <div>
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-transform hover:scale-105"
                 >
-                  ورود
+                  {isSubmitting ? "در حال ورود..." : "ورود"}
                 </button>
               </div>
 

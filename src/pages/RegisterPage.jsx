@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { Lock, Mail, Eye, EyeOff, User } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuth } from "../contexts/AuthContext";
@@ -27,32 +28,26 @@ const GoogleIcon = () => (
 );
 
 function RegisterPage() {
-  const [name, setName] = useState("");
-  const [lastName, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
-  const { register } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+
+  // rename to avoid conflict
+  const { register: registerUser } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name || !lastName || !email || !password) {
-      toast.error("لطفاً تمام فیلدها را پر کنید.");
-      return;
-    }
+  const onSubmit = async (data) => {
+    const { name, lastName, email, password } = data;
 
-    setIsLoading(true);
-    const isSuccess = await register({ name, lastName, email, password });
-    setIsLoading(false);
+    const isSuccess = await registerUser({ name, lastName, email, password });
 
     if (isSuccess) {
       toast.success("ثبت‌نام شما با موفقیت انجام شد. به بوک استور خوش آمدید!");
-      setTimeout(() => {
-        navigate("/"); // Redirect to homepage after a short delay
-      }, 1500);
+      navigate("/");
     }
   };
 
@@ -80,76 +75,111 @@ function RegisterPage() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+            {/* form inputs */}
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
               {/* name Input */}
-              <div className="relative">
-                <User className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  required
-                  className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
-                  placeholder="نام"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
+              <div>
+                <div className="relative">
+                  <User className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+                    placeholder="نام"
+                    {...register("name", { required: "نام الزامی است" })}
+                  />
+                </div>
+                {errors.name && (
+                  <p className="mt-1 text-xs text-red-500 text-right">
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
 
               {/* lastName Input */}
-              <div className="relative">
-                <User className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  autoComplete="name"
-                  required
-                  className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
-                  placeholder="نام خانوادگی"
-                  value={lastName}
-                  onChange={(e) => setLastname(e.target.value)}
-                />
+              <div>
+                <div className="relative">
+                  <User className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    autoComplete="name"
+                    required
+                    className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+                    placeholder="نام خانوادگی"
+                    {...register("lastName", {
+                      required: "نام خانوادگی الزامی است",
+                    })}
+                  />
+                </div>
+                {errors.lastName && (
+                  <p className="mt-1 text-xs text-red-500 text-right">
+                    {errors.lastName.message}
+                  </p>
+                )}
               </div>
 
               {/* Email Input */}
-              <div className="relative">
-                <Mail className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
-                  placeholder="ایمیل"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+              <div>
+                <div className="relative">
+                  <Mail className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+                    placeholder="ایمیل"
+                    {...register("email", {
+                      required: "ایمیل الزامی است",
+                      pattern: {
+                        value: /^\S+@\S+$/i,
+                        message: "ایمیل نامعتبر است",
+                      },
+                    })}
+                  />
+                </div>
+                {errors.email && (
+                  <p className="mt-1 text-xs text-red-500 text-right">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               {/* Password Input */}
-              <div className="relative">
-                <Lock className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="current-password"
-                  required
-                  className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
-                  placeholder="رمز عبور"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
+              <div>
+                <div className="relative">
+                  <Lock className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    className="w-full border border-gray-300 px-10 py-3 text-right rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+                    placeholder="رمز عبور"
+                    {...register("password", {
+                      required: "رمز عبور الزامی است",
+                      minLength: {
+                        value: 6,
+                        message: "رمز عبور باید حداقل 6 کاراکتر باشد",
+                      },
+                    })}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+                {errors.password && (
+                  <p className="mt-1 text-xs text-red-500 text-right">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
 
               <div className="flex items-center justify-between">
@@ -179,9 +209,10 @@ function RegisterPage() {
               <div>
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-transform hover:scale-105"
                 >
-                  ورود
+                  {isSubmitting ? "در حال ثبت نام..." : "ثبت نام"}
                 </button>
               </div>
 
