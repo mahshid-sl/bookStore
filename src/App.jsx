@@ -5,6 +5,7 @@ import Loading from "./components/Loading";
 import ScrollToTop from "./components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Lazy load the following pages
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -64,10 +65,24 @@ function App() {
                 {/* other pages=== */}
                 <Route path="contact" element={<ContactUs />} />
                 <Route path="aboutus" element={<AboutUs />} />
-                <Route path="cart" element={<Cart />} />
+                <Route
+                  path="cart"
+                  element={
+                    <ProtectedRoute>
+                      <Cart />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="login" element={<LoginPage />} />
                 <Route path="register" element={<RegisterPage />} />
-                <Route path="profile" element={<ProfilePage />} />
+                <Route
+                  path="profile"
+                  element={
+                    <ProtectedRoute>
+                      <ProfilePage />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="popularbook" element={<PopularBookPage />} />
                 <Route path="newbook" element={<NewArrivalsPage />} />
                 <Route path="recommended" element={<RecommendedBooksPage />} />

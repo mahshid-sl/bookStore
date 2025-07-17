@@ -182,29 +182,6 @@ function RegisterPage() {
                 )}
               </div>
 
-              <div className="flex items-center justify-between">
-                <Link
-                  to="#"
-                  className="text-sm font-medium text-amber-500 hover:underline"
-                >
-                  فراموشی رمز عبور
-                </Link>
-                <div className="flex items-center">
-                  <input
-                    id="remember-me"
-                    name="remember-me"
-                    type="checkbox"
-                    className="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
-                  />
-                  <label
-                    htmlFor="remember-me"
-                    className="mr-2 block text-sm text-gray-900"
-                  >
-                    مرا به خاطر بسپار
-                  </label>
-                </div>
-              </div>
-
               {/* Submit Button */}
               <div>
                 <button
