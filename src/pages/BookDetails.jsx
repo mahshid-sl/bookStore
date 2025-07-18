@@ -11,6 +11,7 @@ import {
   Star,
 } from "lucide-react";
 import BookTabs from "../components/BookTabs";
+import { useCart } from "../contexts/CartContext";
 
 function BookDetails() {
   const [book, setBook] = useState(null);
@@ -18,6 +19,8 @@ function BookDetails() {
   const [breadcrumbs, setBreadcrumbs] = useState([]);
   const [error, setError] = useState(null);
   const { bookId } = useParams();
+
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchBookDetails = async () => {
@@ -43,12 +46,12 @@ function BookDetails() {
           setBook(bookData);
         }
 
-        // --- منطق ساخت نان‌ریز اصلاح شده است ---
+        //  slug
         const createSlug = (text) => text.replace(/\s+/g, "-").toLowerCase();
 
         const path = [{ name: "خانه", path: "/" }];
 
-        // 1. نوع کتاب را مشخص می‌کنیم
+        // type of book
         const bookType = bookData.isAudiobook ? "audiobooks" : "ebooks";
         const bookTypeName = bookData.isAudiobook
           ? "کتاب صوتی"
@@ -56,7 +59,7 @@ function BookDetails() {
 
         path.push({ name: bookTypeName, path: `/${bookType}` });
 
-        // 2. لینک دسته‌بندی و زیرمجموعه را با نوع کتاب ترکیب می‌کنیم
+        // category
         if (bookData.category) {
           path.push({
             name: bookData.category,
@@ -167,12 +170,12 @@ function BookDetails() {
               <span className="text-lg font-normal">تومان</span>
             </p>
             <div className="flex flex-col gap-3 mt-4">
-              <Link
+              <button
+                onClick={() => addToCart(book)}
                 className="w-full text-center bg-amber-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-amber-600 transition"
-                to={"/cart"}
               >
                 افزودن به سبد خرید
-              </Link>
+              </button>
               {book.downloadLink && (
                 <a
                   href={book.downloadLink}

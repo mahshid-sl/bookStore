@@ -1,29 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, CreditCard, ShoppingBag, Trash2 } from "lucide-react";
+import { useCart } from "../contexts/CartContext";
+import toast from "react-hot-toast";
 
-// Sample data for the cart
-// In a real application, this data would come from a global state (like Context or Redux)
-const initialCartItems = [
-  {
-    id: 1,
-    title: "هفت مونولوگ برای آغاز دیالوگ",
-    author: { name: "گروه نویسندگان" },
-    image: "/images/books/heft_monolog_1.webp",
-    price: 110000,
-    quantity: 1,
-  },
-  {
-    id: 86,
-    title: "زن‌ها مردها را از دست می‌دهند، چرا؟",
-    author: { name: "جس مک‌کن" },
-    image: "/images/books/women-lose-men.webp",
-    price: 115000,
-    quantity: 1,
-  },
-];
-
-// Component to display each item in the cart
 function CartItem({ item, onRemove }) {
   return (
     <div className="flex items-start sm:items-center gap-4 py-4">
@@ -34,7 +14,9 @@ function CartItem({ item, onRemove }) {
       />
       <div className="flex-grow text-right">
         <h3 className="font-bold text-gray-800">{item.title}</h3>
-        <p className="text-sm text-gray-500 mt-1">{item.author.name}</p>
+        {item.author && item.author.name && (
+          <p className="text-sm text-gray-500 mt-1">{item.author.name}</p>
+        )}
         <p className="text-sm font-semibold text-amber-600 mt-2">
           {item.price.toLocaleString()} تومان
         </p>
@@ -49,25 +31,48 @@ function CartItem({ item, onRemove }) {
   );
 }
 
-// Main component for the Cart page
 function Cart() {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const { cartItems, removeFromCart, totalPrice, itemCount } = useCart();
 
-  const handleRemoveItem = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  const [couponCode, setCouponCode] = useState("");
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [appliedCoupon, setAppliedCoupon] = useState("");
+
+  useEffect(() => {
+    if (appliedCoupon === "OFF50") {
+      setDiscountAmount(totalPrice * 0.5);
+    } else if (appliedCoupon === "OFF30") {
+      setDiscountAmount(totalPrice * 0.3);
+    } else {
+      setDiscountAmount(0);
+    }
+  }, [totalPrice, appliedCoupon]);
+
+  const handleApplyDiscount = () => {
+    if (appliedCoupon) {
+      toast.error("شما قبلاً یک کد تخفیف اعمال کرده‌اید.");
+      return;
+    }
+
+    if (couponCode === "OFF50" || couponCode === "OFF30") {
+      setAppliedCoupon(couponCode);
+      toast.success("کد تخفیف با موفقیت اعمال شد!");
+    } else {
+      toast.error("کد تخفیف وارد شده معتبر نیست.");
+    }
   };
 
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-  const discount = 0; // You can implement discount logic here
-  const total = subtotal - discount;
+  const handleRemoveDiscount = () => {
+    setCouponCode("");
+    setAppliedCoupon("");
+  };
+
+  const total = totalPrice - discountAmount;
 
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Breadcrumbs & Title */}
+        {/* ... Breadcrumbs & Title ... */}
         <div className="text-right mb-10">
           <nav className="flex text-sm text-gray-500 items-center justify-start mb-4">
             <Link to="/" className="hover:text-amber-500">
@@ -81,20 +86,19 @@ function Cart() {
           </h1>
         </div>
 
-        {cartItems.length > 0 ? (
-          // State when the cart has items
+        {itemCount > 0 ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
             {/* Right Column: List of items */}
             <div className="lg:col-span-2 bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-bold text-right mb-4">
-                {cartItems.length} کتاب در سبد شما
+                {itemCount} کتاب در سبد شما
               </h2>
               <div className="divide-y divide-gray-200">
                 {cartItems.map((item) => (
                   <CartItem
                     key={item.id}
                     item={item}
-                    onRemove={handleRemoveItem}
+                    onRemove={removeFromCart}
                   />
                 ))}
               </div>
@@ -102,12 +106,11 @@ function Cart() {
 
             {/* Left Column: Order Summary */}
             <div className="lg:col-span-1 bg-white p-6 rounded-lg shadow-md sticky top-24 space-y-8">
-              {/* Payment Method Section */}
+              {/* ... Payment Method Section ... */}
               <div>
                 <h2 className="text-xl font-bold text-right mb-4">
                   شیوه پرداخت
                 </h2>
-                {/* --- اصلاح شده: ترتیب عناصر برای چیدمان صحیح راست‌چین --- */}
                 <label
                   htmlFor="online"
                   className="flex justify-between items-center border rounded-lg p-4 bg-gray-50 cursor-pointer"
@@ -120,10 +123,12 @@ function Cart() {
                       defaultChecked
                       className="form-radio text-amber-500 focus:ring-amber-500"
                     />
+
                     <div className="text-right">
                       <h3 className="text-sm font-semibold">
                         درگاه پرداخت آنلاین
                       </h3>
+
                       <p className="text-xs text-gray-500">
                         پرداخت با کارت های عضو شتاب
                       </p>
@@ -132,37 +137,58 @@ function Cart() {
                   <img className="h-7" src="/images/shetab.png" alt="shetab" />
                 </label>
               </div>
-
               {/* Discount Code Section */}
               <div>
                 <h2 className="text-xl font-bold text-right mb-4">کد تخفیف</h2>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    className="flex-grow border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-amber-500 text-right"
-                    placeholder="کد تخفیف"
-                  />
 
-                  <button className="bg-amber-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-600 transition-colors">
-                    اعمال
-                  </button>
-                </div>
+                {appliedCoupon ? (
+                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                    <p className="text-sm text-green-700 font-semibold">
+                      کد "{appliedCoupon}" اعمال شد.
+                    </p>
+                    <button
+                      onClick={handleRemoveDiscount}
+                      className="text-xs text-red-500 hover:underline"
+                    >
+                      حذف
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      className="flex-grow border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-amber-500 text-right"
+                      placeholder="کد تخفیف را وارد کنید"
+                      value={couponCode}
+                      onChange={(e) =>
+                        setCouponCode(e.target.value.toUpperCase())
+                      }
+                    />
+                    {
+                      <button
+                        onClick={handleApplyDiscount}
+                        className="bg-amber-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-amber-600 transition-colors"
+                      >
+                        اعمال
+                      </button>
+                    }
+                  </div>
+                )}
               </div>
-
               {/* Factor Section */}
               <div>
-                <h2 className="text-xl font-bold text-right mb-4 pt-4 border-t border-t-gray-300">
+                <h2 className="text-xl font-bold text-right mb-4 pt-4 border-t">
                   فاکتور
                 </h2>
                 <div className="space-y-4">
                   <div className="flex justify-between text-gray-600">
                     <span>جمع کل</span>
-                    <span>{subtotal.toLocaleString()} تومان</span>
+                    <span>{totalPrice.toLocaleString()} تومان</span>
                   </div>
                   <div className="flex justify-between text-gray-600">
                     <span>سود شما از این خرید</span>
                     <span className="text-green-500">
-                      {discount.toLocaleString()} تومان
+                      {discountAmount.toLocaleString()} تومان
                     </span>
                   </div>
                   <div className="border-t border-gray-200 my-4"></div>

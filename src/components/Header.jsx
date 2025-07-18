@@ -4,6 +4,7 @@ import { ChevronDown, Menu, ShoppingBag, X } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import MegaMenu from "./MegaMenu";
 import AuthButtons from "./AuthButtons";
+import { useCart } from "../contexts/CartContext";
 
 const navMenuItems = [
   { title: "کتاب الکترونیک", categories: categories, pathPrefix: "ebooks" },
@@ -13,7 +14,7 @@ const navMenuItems = [
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const [itemCount] = useState(2); // change later just for testing ui
+  const { itemCount } = useCart();
 
   // close mobile menu===
   const closeMobileMenu = () => setMenuOpen(false);
