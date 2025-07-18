@@ -8,7 +8,7 @@ function Hero({ onScrollToPopular }) {
         <div className="text-center lg:text-right">
           <div className=" -mt-10 flex flex-col items-start ">
             <h1 className="font-extrabold text-4xl mb-10 pr-12">
-              کتاب فروش آنلاین
+              کتاب فروشی آنلاین
             </h1>
             {/*--logo_image-- */}
             <img
