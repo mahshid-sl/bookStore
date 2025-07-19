@@ -15,6 +15,7 @@ import { useCart } from "../contexts/CartContext";
 
 function BookDetails() {
   const [book, setBook] = useState(null);
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [breadcrumbs, setBreadcrumbs] = useState([]);
   const [error, setError] = useState(null);
@@ -23,15 +24,21 @@ function BookDetails() {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    const fetchBookDetails = async () => {
+    const fetchAllData = async () => {
       try {
         setLoading(true);
         setError(null);
-        const bookRes = await fetch(`http://localhost:3001/books/${bookId}`);
-        if (!bookRes.ok) {
-          throw new Error("کتاب مورد نظر یافت نشد.");
-        }
+
+        const [bookRes, commentRes] = await Promise.all([
+          fetch(`http://localhost:3001/books/${bookId}`),
+          fetch(`http://localhost:3001/comments?bookId=${bookId}`),
+        ]);
+        if (!bookRes.ok) throw new Error("کتاب مورد نظر یافت نشد.");
+        if (!commentRes.ok) throw new Error("نظرات کتاب یافت نشد.");
+
+        const commentData = await commentRes.json();
         const bookData = await bookRes.json();
+        setComments(commentData);
 
         if (bookData.authorId) {
           const authorRes = await fetch(
@@ -85,8 +92,31 @@ function BookDetails() {
       }
     };
 
-    fetchBookDetails();
+    fetchAllData();
   }, [bookId]);
+
+  // Handle new comment submission
+  const handleCommentSubmit = async (newComments) => {
+    try {
+      const response = await fetch(`http://localhost:3001/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newComments),
+      });
+
+      if (!response.ok) {
+        throw new Error("خطا در ثبت نظر");
+      }
+
+      const savedComment = await response.json();
+      setComments((prevComments) => [...prevComments, savedComment]);
+    } catch (error) {
+      console.error(error);
+      setError(error.message || "خطا در ثبت نظر");
+    }
+  };
 
   if (loading) return <Loading />;
   if (error) return <Error>{error}</Error>;
@@ -217,7 +247,11 @@ function BookDetails() {
       </div>
 
       {/* tabs component */}
-      <BookTabs book={book} />
+      <BookTabs
+        comments={comments}
+        book={book}
+        onCommentSubmit={handleCommentSubmit}
+      />
     </div>
   );
 }
