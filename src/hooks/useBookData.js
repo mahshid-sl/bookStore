@@ -6,7 +6,14 @@ function useBookData(fetchUrl) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // AbortController to prevent memory leaks if the component unmounts while fetching
+    // If the URL is null, it means we shouldn't fetch.
+    // We clear any existing books and stop the loading state.
+    if (!fetchUrl) {
+      setBooks([]);
+      setLoading(false);
+      return;
+    }
+
     const controller = new AbortController();
     const signal = controller.signal;
 
@@ -14,35 +21,30 @@ function useBookData(fetchUrl) {
       setLoading(true);
       setError(null);
       try {
-        // Fetch books and all authors concurrently for better performance
         const [booksRes, authorsRes] = await Promise.all([
           fetch(fetchUrl, { signal }),
-          fetch("http://localhost:3001/author", { signal }), // Fetches all authors
+          fetch("http://localhost:3001/author", { signal }),
         ]);
 
-        if (!booksRes.ok || !authorsRes.ok) {
+        if (signal.aborted) return;
+        if (!booksRes.ok || !authorsRes.ok)
           throw new Error("خطا در ارتباط با سرور");
-        }
 
         const booksData = await booksRes.json();
         const authorsData = await authorsRes.json();
 
-        // Create a Map of authors for efficient O(1) lookup
         const authorsMap = new Map(
           authorsData.map((author) => [author.id, author])
         );
 
-        // Combine book data with its author using the map
         const combinedBooks = booksData.map((book) => ({
           ...book,
-          author: authorsMap.get(book.authorId) || null, // Gracefully handle if author is not found
+          author: authorsMap.get(book.authorId) || null,
         }));
 
         setBooks(combinedBooks);
       } catch (err) {
-        // Don't update state if the error is from aborting the fetch
         if (err.name !== "AbortError") {
-          console.error(err.message);
           setError("خطا در بارگذاری داده‌ها");
         }
       } finally {
@@ -52,17 +54,12 @@ function useBookData(fetchUrl) {
       }
     };
 
-    if (fetchUrl) {
-      fetchAndCombineData();
-    } else {
-      setLoading(false);
-    }
+    fetchAndCombineData();
 
-    // Cleanup function: aborts the fetch request if the component unmounts
     return () => {
       controller.abort();
     };
-  }, [fetchUrl]); // Re-run this effect whenever the fetchUrl changes
+  }, [fetchUrl]);
 
   return { books, loading, error };
 }

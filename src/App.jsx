@@ -95,6 +95,7 @@ function App() {
                   <Route path="shipping-info" element={<DownloadGuidePage />} />
                   <Route path="how-to-order" element={<PurchaseGuidePage />} />
                   <Route path="subscribe" element={<SubscriptionPage />} />
+
                   <Route path="*" element={<NotFoundPage />} />
                 </Route>
               </Routes>

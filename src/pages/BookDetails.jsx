@@ -221,9 +221,13 @@ function BookDetails() {
             <button className="p-3 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors">
               <MessageCircleQuestion size={20} />
             </button>
-            <button className="p-3 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors">
+            <button
+              type="button"
+              className="p-3 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors"
+            >
               <Heart size={20} />
             </button>
+
             <div className="flex items-center gap-2">
               <span className="text-gray-600 font-semibold">
                 ({book.rating.toFixed(1)})
