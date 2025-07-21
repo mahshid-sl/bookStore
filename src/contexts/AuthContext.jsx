@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import toast from "react-hot-toast";
 
-// 1. Create the AuthContext
 export const authContext = createContext();
 
 const initialState = {
@@ -9,16 +8,15 @@ const initialState = {
   user: null,
 };
 
+// The reducer is now a pure function, only responsible for state transitions.
 function reducer(state, action) {
   switch (action.type) {
     case "LOGIN":
     case "REGISTER":
     case "UPDATE_USER":
-      localStorage.setItem("user", JSON.stringify(action.payload));
       return { ...state, isAuthenticated: true, user: action.payload };
 
     case "LOGOUT":
-      localStorage.removeItem("user");
       return { ...state, isAuthenticated: false, user: null };
 
     default:
@@ -26,23 +24,22 @@ function reducer(state, action) {
   }
 }
 
-// AuthProvider component
 function AuthProvider({ children }) {
-  const [{ isAuthenticated, user }, dispatch] = useReducer(
+  const [{ user, isAuthenticated }, dispatch] = useReducer(
     reducer,
     initialState
   );
 
+  // This effect runs once to check for a persisted session from either storage.
   useEffect(() => {
-    // Check for user in localStorage
-    const storedUser = localStorage.getItem("user");
+    const storedUser =
+      localStorage.getItem("user") || sessionStorage.getItem("user");
     if (storedUser) {
-      const user = JSON.parse(storedUser);
-      dispatch({ type: "LOGIN", payload: user });
+      dispatch({ type: "LOGIN", payload: JSON.parse(storedUser) });
     }
   }, []);
 
-  async function login({ email, password }) {
+  async function login({ email, password, rememberMe }) {
     try {
       const res = await fetch(
         `http://localhost:3001/users?email=${email}&password=${password}`
@@ -50,7 +47,14 @@ function AuthProvider({ children }) {
       const data = await res.json();
 
       if (data.length > 0) {
-        dispatch({ type: "LOGIN", payload: data[0] });
+        const userData = data[0];
+        // Side effect: Save to the correct storage based on user's choice
+        if (rememberMe) {
+          localStorage.setItem("user", JSON.stringify(userData));
+        } else {
+          sessionStorage.setItem("user", JSON.stringify(userData));
+        }
+        dispatch({ type: "LOGIN", payload: userData });
         toast.success("خوش آمدید!");
         return true;
       } else {
@@ -65,23 +69,17 @@ function AuthProvider({ children }) {
 
   async function register({ name, lastName, email, password }) {
     try {
-      // Step 1: Check if user already exists
       const checkUserRes = await fetch(
         `http://localhost:3001/users?email=${email}`
       );
       const existingUser = await checkUserRes.json();
-
       if (existingUser.length > 0) {
         toast.error("این ایمیل قبلاً ثبت‌نام شده است.");
         return false;
       }
-
-      // Step 2: Create the new user if they don't exist
       const newUserRes = await fetch(`http://localhost:3001/users`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
           lastName,
@@ -93,19 +91,12 @@ function AuthProvider({ children }) {
           avatar: "",
         }),
       });
-
-      if (!newUserRes.ok) {
-        throw new Error("خطایی در هنگام ثبت‌نام رخ داد.");
-      }
-
+      if (!newUserRes.ok) throw new Error();
       const newUser = await newUserRes.json();
 
-      // Step 3: Dispatch the new user to update the state
-      dispatch({
-        type: "REGISTER",
-        payload: newUser,
-      });
-
+      // After registration, log them in for the current session by default.
+      sessionStorage.setItem("user", JSON.stringify(newUser));
+      dispatch({ type: "REGISTER", payload: newUser });
       return true;
     } catch {
       toast.error("خطایی در هنگام ثبت‌نام رخ داد.");
@@ -114,6 +105,9 @@ function AuthProvider({ children }) {
   }
 
   function logout() {
+    // Side effect: Clear both storages on logout to be safe
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     dispatch({ type: "LOGOUT" });
   }
 
@@ -128,6 +122,14 @@ function AuthProvider({ children }) {
       if (!res.ok) throw new Error();
 
       const data = await res.json();
+
+      // Side effect: Update the correct storage
+      if (localStorage.getItem("user")) {
+        localStorage.setItem("user", JSON.stringify(data));
+      } else if (sessionStorage.getItem("user")) {
+        sessionStorage.setItem("user", JSON.stringify(data));
+      }
+
       dispatch({ type: "UPDATE_USER", payload: data });
       return true;
     } catch {
@@ -148,10 +150,9 @@ function AuthProvider({ children }) {
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
 }
 
-// useAuth custom hook
 export function useAuth() {
   const context = useContext(authContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;

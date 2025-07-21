@@ -110,7 +110,7 @@ function Header() {
               <ShoppingBag size={24} />
               {itemCount > 0 && (
                 <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-orange-300 text-xs font-bold text-[#333333]">
-                  {itemCount}
+                  {itemCount > 0 ? itemCount : ""}
                 </span>
               )}
             </Link>

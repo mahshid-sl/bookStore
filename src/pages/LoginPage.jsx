@@ -27,6 +27,8 @@ const GoogleIcon = () => (
 );
 
 function LoginPage() {
+  const [rememberMe, setRememberMe] = useState(false);
+
   // Form handling
   const {
     register,
@@ -45,7 +47,7 @@ function LoginPage() {
     if (!email || !password) return;
 
     // login user
-    const isSuccess = await login({ email, password });
+    const isSuccess = await login({ email, password, rememberMe });
     if (isSuccess) {
       setTimeout(() => {
         navigate("/"); // Redirect to homepage after a short delay
@@ -146,6 +148,8 @@ function LoginPage() {
                 </Link>
                 <div className="flex items-center">
                   <input
+                    checked={rememberMe}
+                    onChange={() => setRememberMe(!rememberMe)}
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
