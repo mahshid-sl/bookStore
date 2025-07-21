@@ -11,8 +11,9 @@ import "swiper/css/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import AuthorCard from "./AuthorCard";
-import Loading from "./Loading";
+
 import Error from "./Error";
+import SkeletonCard from "./SkeletonCard";
 
 function AuthorCarousel() {
   const [authors, setAuthors] = useState([]);
@@ -38,7 +39,20 @@ function AuthorCarousel() {
     fetchAuthors();
   }, []);
 
-  if (loading) return <Loading />;
+  if (loading) {
+    return (
+      <section className="py-12 author-carousel-section max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6">
+          {[...Array(5)].map((_, index) => (
+            <div key={index}>
+              <SkeletonCard />
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   if (error) return <Error>{error}</Error>;
 
   return (
