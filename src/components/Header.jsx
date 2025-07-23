@@ -5,6 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 import MegaMenu from "./MegaMenu";
 import AuthButtons from "./AuthButtons";
 import { useCart } from "../contexts/CartContext";
+import { useAuth } from "../contexts/AuthContext";
 
 const navMenuItems = [
   { title: "کتاب الکترونیک", categories: categories, pathPrefix: "ebooks" },
@@ -13,7 +14,7 @@ const navMenuItems = [
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const { isAuthenticated } = useAuth();
   const { itemCount } = useCart();
 
   // close mobile menu===
@@ -108,9 +109,9 @@ function Header() {
               aria-label="مشاهده سبد خرید"
             >
               <ShoppingBag size={24} />
-              {itemCount > 0 && (
+              {isAuthenticated && itemCount > 0 && (
                 <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-orange-300 text-xs font-bold text-[#333333]">
-                  {itemCount > 0 ? itemCount : ""}
+                  {itemCount}
                 </span>
               )}
             </Link>
