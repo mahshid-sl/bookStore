@@ -29,6 +29,8 @@ const FaqPage = lazy(() => import("./pages/FaqPage"));
 const DownloadGuidePage = lazy(() => import("./pages/DownloadGuidePage"));
 const SubscriptionPage = lazy(() => import("./pages/SubscriptionPage"));
 const PurchaseGuidePage = lazy(() => import("./pages/PurchaseGuidePage"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 
 function App() {
   return (
@@ -95,6 +97,14 @@ function App() {
                   <Route path="shipping-info" element={<DownloadGuidePage />} />
                   <Route path="how-to-order" element={<PurchaseGuidePage />} />
                   <Route path="subscribe" element={<SubscriptionPage />} />
+                  <Route
+                    path="reset-password"
+                    element={<ResetPasswordPage />}
+                  />
+                  <Route
+                    path="forgot-password"
+                    element={<ForgotPasswordPage />}
+                  />
 
                   <Route path="*" element={<NotFoundPage />} />
                 </Route>

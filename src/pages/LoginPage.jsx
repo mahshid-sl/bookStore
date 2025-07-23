@@ -57,7 +57,7 @@ function LoginPage() {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen bg-gray-50 p-4">
+      <div className="flex items-center justify-center bg-gray-50 p-4">
         <div className="relative flex w-full max-w-4xl mx-auto overflow-hidden bg-white rounded-2xl shadow-lg">
           {/* Form Section */}
           <div className="w-full lg:w-1/2 p-8 sm:p-12">
@@ -141,7 +141,7 @@ function LoginPage() {
 
               <div className="flex items-center justify-between">
                 <Link
-                  to="#"
+                  to="/forgot-password"
                   className="text-sm font-medium text-amber-500 hover:underline"
                 >
                   فراموشی رمز عبور

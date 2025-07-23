@@ -111,6 +111,28 @@ function AuthProvider({ children }) {
     dispatch({ type: "LOGOUT" });
   }
 
+  async function forgotPassword(email) {
+    try {
+      // We check for the user, but our response to the frontend won't depend on the result.
+      await fetch(`http://localhost:3001/users?email=${email}`);
+
+      // In a real app, if the user exists, you would trigger an email sending service here.
+
+      // ALWAYS show the same success message for security.
+      toast.success(
+        "اگر حسابی با این ایمیل وجود داشته باشد، لینک بازنشانی برای شما ارسال شد."
+      );
+      return true;
+    } catch (error) {
+      // Even on a server error, we show the same message to not reveal system status.
+      toast.success(
+        "اگر حسابی با این ایمیل وجود داشته باشد، لینک بازنشانی برای شما ارسال شد."
+      );
+      console.error("Forgot Password Error:", error);
+      return false;
+    }
+  }
+
   async function updateUser(userId, updatedData) {
     try {
       const res = await fetch(`http://localhost:3001/users/${userId}`, {
@@ -145,6 +167,7 @@ function AuthProvider({ children }) {
     register,
     logout,
     updateUser,
+    forgotPassword,
   };
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;

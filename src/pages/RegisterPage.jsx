@@ -53,7 +53,7 @@ function RegisterPage() {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen bg-gray-50 p-4">
+      <div className="flex items-center justify-center bg-gray-50 p-4">
         <div className="relative flex w-full max-w-4xl mx-auto overflow-hidden bg-white rounded-2xl shadow-lg">
           {/* Form Section */}
           <div className="w-full lg:w-1/2 p-8 sm:p-12">
