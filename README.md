@@ -5,11 +5,16 @@
 <h1 align="center">hey there 👋</h1>
 
 <h3 align="left"> 📖About  Online Book Store Project  </h3>
-
 <p align="left">
 This Project is an e-commerce web application for an online bookstore, built using modern frontend technologies. Users can register, log in, search for books, add items to their cart , and manage their profiles.</p>
 
 ###
+
+<h3 align="left">📸 Project Preview</h3>
+
+![Project Screenshot](screenShots/merged.webp)
+
+
 
 <h3 align="left">🛠 Language and tools</h3>
 
