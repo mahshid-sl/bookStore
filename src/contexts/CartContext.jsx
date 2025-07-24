@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import toast from "react-hot-toast";
-
+import { useAuth } from "./AuthContext";
 export const CartContext = createContext();
 
 const initialState = {
@@ -35,6 +35,7 @@ function reducer(state, action) {
 }
 
 function CartProvider({ children }) {
+  const { isAuthenticated } = useAuth();
   const [{ cartItems }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -55,6 +56,11 @@ function CartProvider({ children }) {
   }, []);
 
   function addToCart(book) {
+    if (!isAuthenticated) {
+      toast.error("برای افزودن کتاب به سبد خرید، ابتدا وارد شوید.");
+      return;
+    }
+
     const existingItem = cartItems.find((item) => item.id === book.id);
     if (existingItem) {
       toast.error("این کتاب قبلاً به سبد خرید اضافه شده است.");

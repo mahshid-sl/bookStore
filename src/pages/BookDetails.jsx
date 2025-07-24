@@ -6,7 +6,7 @@ import {
   BookOpenText,
   ChevronLeft,
   FileAudio,
-  Heart,
+  HeartIcon,
   MessageCircleQuestion,
   Star,
 } from "lucide-react";
@@ -20,7 +20,6 @@ function BookDetails() {
   const [breadcrumbs, setBreadcrumbs] = useState([]);
   const [error, setError] = useState(null);
   const { bookId } = useParams();
-
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -221,11 +220,9 @@ function BookDetails() {
             <button className="p-3 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors">
               <MessageCircleQuestion size={20} />
             </button>
-            <button
-              type="button"
-              className="p-3 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors"
-            >
-              <Heart size={20} />
+
+            <button className="p-3 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors">
+              <HeartIcon size={20} />
             </button>
 
             <div className="flex items-center gap-2">

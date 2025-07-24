@@ -8,7 +8,6 @@ const initialState = {
   user: null,
 };
 
-// The reducer is now a pure function, only responsible for state transitions.
 function reducer(state, action) {
   switch (action.type) {
     case "LOGIN":
@@ -116,8 +115,6 @@ function AuthProvider({ children }) {
       // We check for the user, but our response to the frontend won't depend on the result.
       await fetch(`http://localhost:3001/users?email=${email}`);
 
-      // In a real app, if the user exists, you would trigger an email sending service here.
-
       // ALWAYS show the same success message for security.
       toast.success(
         "اگر حسابی با این ایمیل وجود داشته باشد، لینک بازنشانی برای شما ارسال شد."
@@ -159,6 +156,15 @@ function AuthProvider({ children }) {
       return false;
     }
   }
+  function toggleWishlist(bookId) {
+    if (!user) return;
+
+    const updatedWishlist = user.wishlist.includes(bookId)
+      ? user.wishlist.filter((id) => id !== bookId) // حذف
+      : [...user.wishlist, bookId]; // اضافه
+
+    updateUser(user.id, { wishlist: updatedWishlist });
+  }
 
   const value = {
     user,
@@ -168,6 +174,7 @@ function AuthProvider({ children }) {
     logout,
     updateUser,
     forgotPassword,
+    toggleWishlist,
   };
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
