@@ -37,6 +37,11 @@ This Project is an e-commerce web application for an online bookstore, built us
 <p align="left">_ Fully Responsive Design: Ensures a seamless experience across all devices, from mobile to desktop.</p>
 </div>
 
+<h3 align="left">🎨 Design & Credits</h3>
+<p align="left">The UI/UX for the Homepage and Book Details pages was inspired by the amazing work of a designer on Dribbble.</p>
+<p align="left">Original Design: https://dribbble.com/shots/24762024-Bookstore-website</p>
+<p align="left">Designer: https://dribbble.com/shervinui</p>
+
 <h3 align="left">🛠️ Tech Stack</h3>
 
 <div align="left">
