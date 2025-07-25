@@ -9,6 +9,11 @@
 This Project is an e-commerce web application for an online bookstore, built using modern frontend technologies. Users can register, log in, search for books, add items to their cart , and manage their profiles.</p>
 
 ###
+### 🚀 Live Demo
+
+**You can view the live version of the project here:**
+
+[https://book-store-livid-mu.vercel.app]
 
 <h3 align="left">📸 Project Preview</h3>
 <div align="center">
