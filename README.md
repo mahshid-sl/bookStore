@@ -11,9 +11,19 @@ This Project is an e-commerce web application for an online bookstore, built us
 ###
 
 <h3 align="left">📸 Project Preview</h3>
+<div align="center">
+ 
+  <img src="screenShots/macBook.png" alt="Project Preview" width="600"/>
+  
+  <img src="screenShots/fire-hd.png" alt="Project Preview" width="300" height="400" />
+  
+  <img src="screenShots/iPhone-15-Pro.png" alt="Project Preview" width="200" height="400"/>
+  
+ <img src="screenShots/homepage.png" alt="Project Preview" width="200" height="400" />
+ <img src="screenShots/audiobooks.png" alt="Project Preview" width="200" height="400" />
+ <img src="screenShots/cart.png" alt="Project Preview" width="200" height="400" />
 
-![Project Screenshot](screenShots/merged.webp)
-
+</div>
 
 
 <h3 align="left">🛠 Language and tools</h3>
