@@ -16,10 +16,10 @@ function AboutUs() {
           }
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl lg:text-5xl">
             درباره بوک استور
           </h1>
-          <p className="mt-6 max-w-3xl mx-auto text-xl text-gray-300">
+          <p className="mt-6 max-w-3xl mx-auto text-md sm:text-lg text-gray-300">
             سفری در دنیای کلمات و داستان‌ها، جایی که هر کتاب دریچه‌ای نو به سوی
             دانایی است.
           </p>
@@ -30,7 +30,7 @@ function AboutUs() {
       <div className="py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumbs */}
-          <nav className="flex text-sm text-gray-500 mb-12 items-center justify-start">
+          <nav className="flex text-xs sm:text-sm text-gray-500 mb-12 items-center justify-start">
             <Link to="/" className="hover:text-amber-500">
               خانه
             </Link>
@@ -41,10 +41,10 @@ function AboutUs() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Right Column: Our Story */}
             <div className="text-right">
-              <h2 className="text-3xl font-extrabold text-gray-900 border-r-4 border-amber-500 pr-4 mb-6">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900 border-r-4 border-amber-500 pr-4 mb-6">
                 داستان ما
               </h2>
-              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+              <div className="space-y-6 text-md sm:text-lg text-gray-600 leading-relaxed">
                 <p>
                   بوک استور با یک رویای ساده آغاز شد: ایجاد فضایی برای عاشقان
                   کتاب تا بتوانند به راحتی به گنجینه‌ای از بهترین کتاب‌های
@@ -64,10 +64,10 @@ function AboutUs() {
 
             {/* Left Column: Our Values */}
             <div className="bg-gray-50 p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-gray-800 mb-6 text-right">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-right">
                 ارزش‌های ما
               </h3>
-              <ul className="space-y-8">
+              <ul className="space-y-8 text-md sm:text-lg">
                 <li className="flex items-start gap-4">
                   <div className="flex-shrink-0">
                     <div className="flex items-center justify-center h-12 w-12 rounded-full bg-amber-500 text-white">

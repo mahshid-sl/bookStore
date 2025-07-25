@@ -67,7 +67,7 @@ function CategoryPage() {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* dynamic breadcrumbs */}
-      <nav className="flex text-sm text-gray-500 mb-8 items-center flex-wrap">
+      <nav className="flex text-xs sm:text-sm text-gray-500 mb-8 items-center flex-wrap">
         {breadcrumbs.map((crumb, index) => (
           <div key={index} className="flex items-center">
             {/* dynamic breadcrumb links */}
@@ -86,7 +86,7 @@ function CategoryPage() {
         ))}
       </nav>
 
-      <h1 className="text-3xl font-extrabold text-right mb-8 border-r-4 border-amber-500 pr-4">
+      <h1 className="text-md sm:text-lg md:text-xl font-extrabold text-right mb-8 border-r-4 border-amber-500 pr-4">
         {pageTitle}
       </h1>
 

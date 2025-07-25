@@ -62,13 +62,13 @@ function LoginPage() {
           {/* Form Section */}
           <div className="w-full lg:w-1/2 p-8 sm:p-12">
             <div className="text-right">
-              <Link to="/" className="text-amber-500 font-bold text-2xl">
+              <Link to="/" className="text-amber-500 font-bold text-xl">
                 خوش برگشتی :)
               </Link>
-              <h1 className="mt-6 text-2xl font-extrabold text-gray-900">
+              <h1 className="mt-6 text-lg sm:text-2xl font-extrabold text-gray-900">
                 ورود به حساب کاربری
               </h1>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-gray-600 text-sm">
                 حساب کاربری نداری؟{" "}
                 <Link
                   to="/register"

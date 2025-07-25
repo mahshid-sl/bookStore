@@ -27,14 +27,14 @@ function ContactUs() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Breadcrumbs & Title */}
           <div className="text-right mb-10">
-            <nav className="flex text-sm text-gray-500 items-center justify-start mb-4">
+            <nav className="flex text-xs sm:text-sm text-gray-500 items-center justify-start mb-4">
               <Link to="/" className="hover:text-amber-500">
                 خانه
               </Link>
               <ChevronLeft size={20} className="mx-1" />
               <span className="font-semibold text-gray-700">تماس با ما</span>
             </nav>
-            <h1 className="text-3xl font-extrabold mt-8 text-gray-900 border-r-4 border-amber-500 pr-4">
+            <h1 className="text-md sm:text-lg md:text-xl font-extrabold mt-8 text-gray-900 border-r-4 border-amber-500 pr-4">
               ارتباط با ما
             </h1>
           </div>
@@ -43,7 +43,7 @@ function ContactUs() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             {/* Left Column: Contact Form */}
             <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 text-right">
+              <h2 className="text-xl font-bold text-gray-800 mb-6 text-right">
                 ارسال پیام
               </h2>
               <form className="space-y-6" onSubmit={handleSubmit}>

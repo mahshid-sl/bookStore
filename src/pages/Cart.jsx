@@ -74,14 +74,14 @@ function Cart() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* ... Breadcrumbs & Title ... */}
         <div className="text-right mb-10">
-          <nav className="flex text-sm text-gray-500 items-center justify-start mb-4">
+          <nav className="flex text-xs sm:text-sm text-gray-500 items-center justify-start mb-4">
             <Link to="/" className="hover:text-amber-500">
               خانه
             </Link>
             <ChevronLeft size={20} className="mx-1" />
             <span className="font-semibold text-gray-700">سبد خرید</span>
           </nav>
-          <h1 className="text-3xl font-extrabold text-gray-900 border-r-4 border-amber-500 pr-4">
+          <h1 className="text-md sm:text-lg font-extrabold text-gray-900 border-r-4 border-amber-500 pr-4">
             سبد خرید شما
           </h1>
         </div>
@@ -108,7 +108,7 @@ function Cart() {
             <div className="lg:col-span-1 bg-white p-6 rounded-lg shadow-md sticky top-24 space-y-8">
               {/* ... Payment Method Section ... */}
               <div>
-                <h2 className="text-xl font-bold text-right mb-4">
+                <h2 className="text-lg font-bold text-right mb-4">
                   شیوه پرداخت
                 </h2>
                 <label
@@ -139,10 +139,10 @@ function Cart() {
               </div>
               {/* Discount Code Section */}
               <div>
-                <h2 className="text-xl font-bold text-right mb-4">کد تخفیف</h2>
+                <h2 className="text-lg font-bold text-right mb-4">کد تخفیف</h2>
 
                 {appliedCoupon ? (
-                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                  <div className="flex  justify-between items-center p-3 bg-green-50 rounded-lg ">
                     <p className="text-sm text-green-700 font-semibold">
                       کد "{appliedCoupon}" اعمال شد.
                     </p>
@@ -154,7 +154,7 @@ function Cart() {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex gap-2">
+                  <div className="2xs:flex 2xs:flex-col xs:flex xs:flex-col sm:flex sm:flex-row gap-2 space-y-1">
                     <input
                       type="text"
                       className="flex-grow border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-amber-500 text-right"
@@ -177,10 +177,10 @@ function Cart() {
               </div>
               {/* Factor Section */}
               <div>
-                <h2 className="text-xl font-bold text-right mb-4 pt-4 border-t">
+                <h2 className="text-lg font-bold text-right mb-4 pt-4 border-t">
                   فاکتور
                 </h2>
-                <div className="space-y-4">
+                <div className="space-y-4 text-sm">
                   <div className="flex justify-between text-gray-600">
                     <span>جمع کل</span>
                     <span>{totalPrice.toLocaleString()} تومان</span>
@@ -192,7 +192,7 @@ function Cart() {
                     </span>
                   </div>
                   <div className="border-t border-gray-200 my-4"></div>
-                  <div className="flex justify-between font-bold text-lg text-gray-900">
+                  <div className="flex justify-between font-bold text-md sm:text-lg text-gray-900">
                     <span>مبلغ قابل پرداخت</span>
                     <span>{total.toLocaleString()} تومان</span>
                   </div>
