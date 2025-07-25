@@ -121,17 +121,43 @@ function Header() {
           </div>
         </div>
         {/* ===mobile menu=== */}
+
         {menuOpen && (
           <nav
-            className="md:hidden mt-4 text-[#333333] border-t border-gray-200"
+            className="absolute top-20 left-0 right-0 bg-white md:hidden mt-4 text-[#333333] border-t border-gray-200 p-4"
             role="menu"
             aria-label="منوی موبایل"
           >
-            <MegaMenu
-              categories={categories}
-              isMobile={true}
-              closeMenu={closeMobileMenu}
-            />
+            <div className="flex flex-col gap-4">
+              <NavLink
+                to="/"
+                end
+                onClick={closeMobileMenu}
+                className="py-2 font-semibold"
+              >
+                خانه
+              </NavLink>
+
+              {/* Loop through nav items to create accordions for each */}
+              {navMenuItems.map((item) => (
+                <MegaMenu
+                  key={item.title}
+                  menuTitle={item.title} // Pass the main title
+                  categories={item.categories}
+                  pathPrefix={item.pathPrefix}
+                  isMobile={true}
+                  closeMenu={closeMobileMenu}
+                />
+              ))}
+
+              <NavLink
+                to="/contact"
+                onClick={closeMobileMenu}
+                className="py-2 font-semibold"
+              >
+                تماس با ما
+              </NavLink>
+            </div>
           </nav>
         )}
       </div>

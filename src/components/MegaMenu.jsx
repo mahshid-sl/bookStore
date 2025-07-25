@@ -2,7 +2,13 @@ import { BookOpen, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
+function MegaMenu({
+  menuTitle,
+  categories,
+  pathPrefix,
+  isMobile = false,
+  closeMenu,
+}) {
   //=== state for mobile accordion ===
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -20,45 +26,55 @@ function MegaMenu({ categories, pathPrefix, isMobile = false, closeMenu }) {
   //============================================
   if (isMobile) {
     return (
-      <div className="flex flex-col gap-4 py-4">
-        {categories.map((cat, index) => (
-          <div key={index}>
-            <button
-              onClick={() => toggleSubmenu(index)}
-              className="flex justify-between items-center w-full text-gray-800 font-bold text-base py-2"
-              aria-expanded={openIndex === index}
-            >
-              <div className="flex items-center gap-2">
-                <BookOpen size={18} /> {cat.title}
-              </div>
-              <ChevronDown
-                className={`transition-transform duration-300 ${
-                  openIndex === index ? "rotate-180" : ""
-                }`}
-                size={20}
-              />
-            </button>
-            <ul
-              className={`overflow-hidden transition-all duration-300 ${
-                openIndex === index ? "max-h-96" : "max-h-0"
-              }`}
-            >
-              {cat.subcategories.map((sub, idx) => (
-                <li key={idx}>
-                  <Link
-                    to={`/${pathPrefix}/${createSlug(cat.title)}/${createSlug(
-                      sub
-                    )}`}
-                    onClick={() => closeMenu && closeMenu()}
-                    className="block py-2 pr-8 text-gray-600 hover:text-amber-500"
-                  >
-                    {sub}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div className=" pb-1">
+        {/* Main Accordion Button (e.g., "کتاب الکترونیک") */}
+        <button
+          onClick={() => toggleSubmenu("main")}
+          className="flex justify-between items-center w-full text-gray-800 font-bold text-md py-2"
+        >
+          {menuTitle}
+          <ChevronDown
+            className={`transition-transform duration-300 ${
+              openIndex === "main" ? "rotate-180" : ""
+            }`}
+            size={20}
+          />
+        </button>
+        {/* Submenu with categories */}
+        <ul
+          className={`overflow-hidden transition-all duration-300 pr-4 ${
+            openIndex === "main" ? "max-h-[1000px]" : "max-h-0"
+          }`}
+        >
+          {categories.map((cat, idx) => (
+            <li key={idx} className="py-1">
+              <Link
+                // --- FIX: Correct URL structure for main categories ---
+                to={`/${pathPrefix}/${createSlug(cat.title)}`}
+                onClick={closeMenu}
+                className="block py-2 font-semibold text-gray-700 hover:text-amber-500"
+              >
+                {cat.title}
+              </Link>
+              <ul className="pr-4">
+                {cat.subcategories.map((sub, subIdx) => (
+                  <li key={subIdx}>
+                    <Link
+                      // --- FIX: Correct URL structure for subcategories ---
+                      to={`/${pathPrefix}/${createSlug(cat.title)}/${createSlug(
+                        sub
+                      )}`}
+                      onClick={closeMenu}
+                      className="block py-2 text-gray-600 hover:text-amber-500"
+                    >
+                      {sub}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
