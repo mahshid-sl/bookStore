@@ -41,7 +41,7 @@ function FaqItem({ faq, index, openIndex, setOpenIndex }) {
         className="flex w-full items-center justify-between text-right"
         aria-expanded={isOpen}
       >
-        <span className="text-lg font-semibold text-gray-800">
+        <span className="text-sm sm:text-md font-semibold text-gray-800">
           {faq.question}
         </span>
         <ChevronDown
@@ -58,7 +58,9 @@ function FaqItem({ faq, index, openIndex, setOpenIndex }) {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+          <p className="text-gray-600 leading-relaxed text-xs sm:text-md">
+            {faq.answer}
+          </p>
         </div>
       </div>
     </div>
@@ -72,14 +74,18 @@ function FaqPage() {
     <div className="bg-white">
       {/* Hero Section */}
       <div className="bg-gray-50 py-16 text-center">
-        <h1 className="text-4xl font-extrabold text-gray-900">سوالات متداول</h1>
-        <p className="mt-4 text-lg text-gray-600">پاسخ به پرسش‌های شما</p>
+        <h1 className="text-xl sm:text-2xl font-extrabold text-gray-900">
+          سوالات متداول
+        </h1>
+        <p className="mt-4  text-md sm:text-lg text-gray-600">
+          پاسخ به پرسش‌های شما
+        </p>
       </div>
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Breadcrumbs */}
-        <nav className="flex text-sm text-gray-500 mb-12 items-center justify-start">
+        <nav className="flex text-xs sm:text-sm text-gray-500 mb-12 items-center justify-start">
           <Link to="/" className="hover:text-amber-500">
             خانه
           </Link>

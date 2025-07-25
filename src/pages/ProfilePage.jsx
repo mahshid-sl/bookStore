@@ -217,7 +217,7 @@ function ProfilePage() {
               onSubmit={handleSubmit(onSubmit)}
               className="bg-white p-8 rounded-lg shadow-md space-y-8"
             >
-              {/* ===== بخش عکس پروفایل (اضافه شده) ===== */}
+              {/* profile picture */}
               <input
                 type="file"
                 ref={fileInputRef}

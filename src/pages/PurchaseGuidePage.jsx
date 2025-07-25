@@ -13,16 +13,18 @@ function PurchaseGuidePage() {
     <div className="bg-white">
       {/* Hero Section */}
       <div className="bg-gray-50 py-16 text-center">
-        <h1 className="text-4xl font-extrabold text-gray-900">
+        <h1 className="text-xl sm:text-2xl font-extrabold text-gray-900">
           راهنمای خرید و پرداخت
         </h1>
-        <p className="mt-4 text-lg text-gray-600">یک تجربه خرید آسان و امن</p>
+        <p className="mt-4 text-md sm:text-lg text-gray-600">
+          یک تجربه خرید آسان و امن
+        </p>
       </div>
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Breadcrumbs */}
-        <nav className="flex text-sm text-gray-500 mb-12 items-center justify-start">
+        <nav className="flex text-xs sm:text-sm text-gray-500 mb-12 items-center justify-start">
           <Link to="/" className="hover:text-amber-500">
             خانه
           </Link>
@@ -42,10 +44,10 @@ function PurchaseGuidePage() {
                 <div className="h-16 w-0.5 bg-gray-200 my-2"></div>
               </div>
               <div className="text-right mt-1">
-                <h3 className="text-xl font-bold text-gray-800">
+                <h3 className="text-md sm:text-lg font-bold text-gray-800">
                   مرحله اول: انتخاب کتاب
                 </h3>
-                <p className="mt-2 text-gray-600 leading-relaxed">
+                <p className="mt-2 text-gray-600 leading-relaxed text-sm sm:text-md">
                   در میان هزاران کتاب الکترونیک و صوتی در فروشگاه ما جستجو کنید.
                   پس از پیدا کردن کتاب مورد نظر، روی دکمه «افزودن به سبد خرید»
                   کلیک کنید.
@@ -62,10 +64,10 @@ function PurchaseGuidePage() {
                 <div className="h-16 w-0.5 bg-gray-200 my-2"></div>
               </div>
               <div className="text-right mt-1">
-                <h3 className="text-xl font-bold text-gray-800">
+                <h3 className="text-md sm:text-lg font-bold text-gray-800">
                   مرحله دوم: سبد خرید
                 </h3>
-                <p className="mt-2 text-gray-600 leading-relaxed">
+                <p className="mt-2 text-gray-600 leading-relaxed text-sm sm:text-md">
                   پس از اضافه کردن تمام کتاب‌های مورد نظر، روی آیکون سبد خرید در
                   بالای صفحه کلیک کنید. در این صفحه می‌توانید لیست کتاب‌های خود
                   را مرور کرده و در صورت داشتن کد تخفیف، آن را در کادر مربوطه
@@ -82,10 +84,10 @@ function PurchaseGuidePage() {
                 </div>
               </div>
               <div className="text-right mt-1">
-                <h3 className="text-xl font-bold text-gray-800">
+                <h3 className="text-md sm:text-lg font-bold text-gray-800">
                   مرحله سوم: پرداخت نهایی
                 </h3>
-                <p className="mt-2 text-gray-600 leading-relaxed">
+                <p className="mt-2 text-gray-600 leading-relaxed text-sm sm:text-md">
                   با کلیک روی دکمه «تکمیل خرید»، به صفحه پرداخت هدایت می‌شوید.
                   در این مرحله، اطلاعات خود را وارد کرده و سپس به درگاه پرداخت
                   امن بانکی متصل خواهید شد.
@@ -98,11 +100,11 @@ function PurchaseGuidePage() {
           <div className="p-8 bg-green-50 rounded-lg text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
               <ShieldCheck size={32} className="text-green-600" />
-              <h2 className="text-2xl font-bold text-green-800">
+              <h2 className="text-lg sm:text-xl   font-bold text-green-800">
                 پرداخت امن و مطمئن
               </h2>
             </div>
-            <p className="text-gray-700 max-w-2xl mx-auto">
+            <p className="text-gray-700 max-w-2xl mx-auto text-sm sm:text-md">
               تمام تراکنش‌های شما از طریق درگاه‌های پرداخت رسمی و با استفاده از
               پروتکل‌های امنیتی پیشرفته (SSL) انجام می‌شود. ما به حریم خصوصی و
               امنیت اطلاعات شما متعهد هستیم.

@@ -13,10 +13,10 @@ function DownloadGuidePage() {
     <div className="bg-white">
       {/* Hero Section */}
       <div className="bg-gray-50 py-16 text-center">
-        <h1 className="text-4xl font-extrabold text-gray-900">
+        <h1 className="text-xl md:text-2xl font-extrabold text-gray-900">
           راهنمای دانلود و استفاده
         </h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <p className="mt-4 text-md sm:text-lg text-gray-600">
           چگونه از کتاب‌های خود لذت ببرید
         </p>
       </div>
@@ -24,7 +24,7 @@ function DownloadGuidePage() {
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Breadcrumbs */}
-        <nav className="flex text-sm text-gray-500 mb-12 items-center justify-start">
+        <nav className="flex text-xs sm:text-sm text-gray-500 mb-12 items-center justify-start">
           <Link to="/" className="hover:text-amber-500">
             خانه
           </Link>
@@ -32,18 +32,18 @@ function DownloadGuidePage() {
           <span className="font-semibold text-gray-700">راهنمای دانلود</span>
         </nav>
 
-        <div className="space-y-12 text-right">
+        <div className="space-y-12 text-right ">
           {/* Step 1: General Download Process */}
-          <div className="p-8 bg-blue-50 rounded-lg">
-            <div className="flex items-center justify-end gap-4 mb-4">
-              <h2 className="text-2xl font-bold text-blue-800">
+          <div className="p-8 bg-blue-50 rounded-lg text-right">
+            <div className="flex items-center justify-end gap-4 mb-4 text-right">
+              <h2 className="text-xl sm:text-2xl font-bold text-blue-800 ">
                 مراحل کلی دانلود
               </h2>
               <div className="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
                 <Download size={24} />
               </div>
             </div>
-            <ol className="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed pr-5">
+            <ol className="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed pr-5 text-sm sm:text-md">
               <li>پس از تکمیل فرآیند خرید، وارد حساب کاربری خود شوید.</li>
               <li>
                 به بخش <strong>«کتابخانه من»</strong> یا{" "}
@@ -62,14 +62,14 @@ function DownloadGuidePage() {
           {/* Step 2: Ebooks Guide */}
           <div className="p-8 bg-green-50 rounded-lg">
             <div className="flex items-center justify-end gap-4 mb-4">
-              <h2 className="text-2xl font-bold text-green-800">
+              <h2 className="text-xl sm:text-2xl font-bold text-green-800">
                 راهنمای کتاب‌های الکترونیک (PDF و EPUB)
               </h2>
               <div className="flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600">
                 <FileText size={24} />
               </div>
             </div>
-            <div className="space-y-4 text-gray-700 leading-relaxed">
+            <div className="space-y-4 text-gray-700 leading-relaxed text-sm sm:text-md">
               <p>
                 کتاب‌های الکترونیک ما در دو فرمت محبوب PDF و EPUB ارائه می‌شوند
                 تا بهترین تجربه مطالعه را داشته باشید.
@@ -111,14 +111,14 @@ function DownloadGuidePage() {
           {/* Step 3: Audiobooks Guide */}
           <div className="p-8 bg-purple-50 rounded-lg">
             <div className="flex items-center justify-end gap-4 mb-4">
-              <h2 className="text-2xl font-bold text-purple-800">
+              <h2 className="text-xl sm:text-2xl font-bold text-purple-800">
                 راهنمای کتاب‌های صوتی (MP3)
               </h2>
               <div className="flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-600">
                 <Headphones size={24} />
               </div>
             </div>
-            <div className="space-y-4 text-gray-700 leading-relaxed">
+            <div className="space-y-4 text-gray-700 leading-relaxed text-sm sm:text-md">
               <p>
                 کتاب‌های صوتی با فرمت استاندارد MP3 ارائه می‌شوند که با تمام
                 دستگاه‌ها سازگار است.
