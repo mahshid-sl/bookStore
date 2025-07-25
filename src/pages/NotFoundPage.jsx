@@ -9,13 +9,13 @@ function NotFoundPage() {
           className="mx-auto h-24 w-24 text-amber-500"
           strokeWidth={1}
         />
-        <h1 className="mt-8 text-6xl font-extrabold text-gray-900 tracking-tight sm:text-8xl">
+        <h1 className="mt-8 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
           404
         </h1>
-        <h2 className="mt-4 text-2xl font-bold text-gray-800">
+        <h2 className="mt-4 text-xl font-bold text-gray-800">
           صفحه مورد نظر یافت نشد
         </h2>
-        <p className="mt-4 text-gray-600">
+        <p className="mt-4 text-gray-600 text-sm sm:text-md">
           متاسفانه صفحه‌ای که به دنبال آن بودید وجود ندارد. ممکن است آدرس را
           اشتباه وارد کرده باشید یا صفحه حذف شده باشد.
         </p>
@@ -24,7 +24,7 @@ function NotFoundPage() {
           className="mt-8 inline-flex items-center gap-2 rounded-lg bg-amber-500 px-6 py-3 font-semibold text-white shadow-md transition-transform hover:scale-105 hover:bg-amber-600"
         >
           <Home size={20} />
-          <span>بازگشت به صفحه اصلی</span>
+          <span className="text-sm sm:text-md">بازگشت به صفحه اصلی</span>
         </Link>
       </div>
     </div>
