@@ -19,9 +19,9 @@ function NewArrivalsPage() {
         جدیدترین کتاب‌ها
       </h1>
       <GridLayout
-        baseUrl={
-          "http://localhost:3001/books?_sort=publicationYear&_order=desc"
-        }
+        baseUrl={`${
+          import.meta.env.VITE_API_URL
+        }/books?_sort=publicationYear&_order=desc`}
       />
     </section>
   );

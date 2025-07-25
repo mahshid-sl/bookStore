@@ -23,7 +23,7 @@ function useBookData(fetchUrl) {
       try {
         const [booksRes, authorsRes] = await Promise.all([
           fetch(fetchUrl, { signal }),
-          fetch("http://localhost:3001/author", { signal }),
+          fetch(`${import.meta.env.VITE_API_URL}/author`, { signal }),
         ]);
 
         if (signal.aborted) return;

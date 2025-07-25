@@ -41,7 +41,9 @@ function AuthProvider({ children }) {
   async function login({ email, password, rememberMe }) {
     try {
       const res = await fetch(
-        `http://localhost:3001/users?email=${email}&password=${password}`
+        `${
+          import.meta.env.VITE_API_URL
+        }/users?email=${email}&password=${password}`
       );
       const data = await res.json();
 
@@ -69,14 +71,14 @@ function AuthProvider({ children }) {
   async function register({ name, lastName, email, password }) {
     try {
       const checkUserRes = await fetch(
-        `http://localhost:3001/users?email=${email}`
+        `${import.meta.env.VITE_API_URL}/users?email=${email}`
       );
       const existingUser = await checkUserRes.json();
       if (existingUser.length > 0) {
         toast.error("این ایمیل قبلاً ثبت‌نام شده است.");
         return false;
       }
-      const newUserRes = await fetch(`http://localhost:3001/users`, {
+      const newUserRes = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -113,7 +115,7 @@ function AuthProvider({ children }) {
   async function forgotPassword(email) {
     try {
       // We check for the user, but our response to the frontend won't depend on the result.
-      await fetch(`http://localhost:3001/users?email=${email}`);
+      await fetch(`${import.meta.env.VITE_API_URL}/users?email=${email}`);
 
       // ALWAYS show the same success message for security.
       toast.success(
@@ -132,11 +134,14 @@ function AuthProvider({ children }) {
 
   async function updateUser(userId, updatedData) {
     try {
-      const res = await fetch(`http://localhost:3001/users/${userId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedData),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/users/${userId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedData),
+        }
+      );
 
       if (!res.ok) throw new Error();
 

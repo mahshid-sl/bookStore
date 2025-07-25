@@ -17,7 +17,7 @@ function CategoryPage() {
 
   useEffect(() => {
     // dynamic API URL construction
-    let url = "http://localhost:3001/books?";
+    let url = `${import.meta.env.VITE_API_URL}/books?`;
     if (bookType === "audiobooks") {
       url += "isAudiobook=true";
     } else if (bookType === "ebooks") {

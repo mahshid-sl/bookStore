@@ -29,8 +29,8 @@ function BookDetails() {
         setError(null);
 
         const [bookRes, commentRes] = await Promise.all([
-          fetch(`http://localhost:3001/books/${bookId}`),
-          fetch(`http://localhost:3001/comments?bookId=${bookId}`),
+          fetch(`${import.meta.env.VITE_API_URL}/books/${bookId}`),
+          fetch(`${import.meta.env.VITE_API_URL}/comments?bookId=${bookId}`),
         ]);
         if (!bookRes.ok) throw new Error("کتاب مورد نظر یافت نشد.");
         if (!commentRes.ok) throw new Error("نظرات کتاب یافت نشد.");
@@ -41,7 +41,7 @@ function BookDetails() {
 
         if (bookData.authorId) {
           const authorRes = await fetch(
-            `http://localhost:3001/author/${bookData.authorId}`
+            `${import.meta.env.VITE_API_URL}/author/${bookData.authorId}`
           );
           if (!authorRes.ok) {
             throw new Error("نویسنده کتاب یافت نشد.");
@@ -97,7 +97,7 @@ function BookDetails() {
   // Handle new comment submission
   const handleCommentSubmit = async (newComments) => {
     try {
-      const response = await fetch(`http://localhost:3001/comments`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

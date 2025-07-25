@@ -11,13 +11,13 @@ function SearchBar() {
   const [searchItem, setSearchItem] = useState(searchParams.get("q") || "");
 
   // get books
-  const { books } = useBookData("http://localhost:3001/books");
+  const { books } = useBookData(`${import.meta.env.VITE_API_URL}/books`);
 
   // get authors
   const [authors, setAuthors] = useState([]);
   useEffect(() => {
     const fetchAuthors = async () => {
-      const response = await fetch("http://localhost:3001/author");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/author`);
       const data = await response.json();
       setAuthors(data);
     };

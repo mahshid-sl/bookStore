@@ -49,7 +49,11 @@ function NewestBooks() {
         </div>
 
         <div className="flex-grow min-w-0">
-          <BookSlider fetchUrl="http://localhost:3001/books?_sort=publicationYear&_order=desc&_limit=5" />
+          <BookSlider
+            fetchUrl={`${
+              import.meta.env.VITE_API_URL
+            }/books?_sort=publicationYear&_order=desc&_limit=5`}
+          />
         </div>
       </div>
     </section>

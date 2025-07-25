@@ -20,7 +20,9 @@ function PopularBookPage() {
         پرطرفدارترین کتاب‌ها
       </h1>
       <GridLayout
-        baseUrl={"http://localhost:3001/books?_sort=rating&_order=desc"}
+        baseUrl={`${
+          import.meta.env.VITE_API_URL
+        }/books?_sort=rating&_order=desc`}
       />
     </section>
   );

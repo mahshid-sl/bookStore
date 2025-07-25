@@ -32,7 +32,10 @@ function usePaginatedBookData(baseUrl) {
       try {
         const [booksRes, authorsRes] = await Promise.all([
           fetch(`${baseUrl}&t=${Date.now()}`, { signal, cache: "no-store" }),
-          fetch("http://localhost:3001/author", { signal, cache: "no-store" }),
+          fetch(`${import.meta.env.VITE_API_URL}/author`, {
+            signal,
+            cache: "no-store",
+          }),
         ]);
 
         if (signal.aborted) return;

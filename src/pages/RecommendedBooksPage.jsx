@@ -19,9 +19,9 @@ function RecommendedBooksPage() {
         پیشنهاد بوک استور
       </h1>
       <GridLayout
-        baseUrl={
-          "http://localhost:3001/books?rating_gte=4.8&_sort=rating&_order=desc"
-        }
+        baseUrl={`${
+          import.meta.env.VITE_API_URL
+        }/books?rating_gte=4.8&_sort=rating&_order=desc`}
       />
     </section>
   );

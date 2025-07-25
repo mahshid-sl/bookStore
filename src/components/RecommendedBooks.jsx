@@ -6,8 +6,9 @@ import Error from "./Error";
 import useBookData from "../hooks/useBookData";
 
 function RecommendedBooks() {
-  const fetchUrl =
-    "http://localhost:3001/books?rating_gte=4.8&_sort=rating&_order=desc&_limit=4";
+  const fetchUrl = `${
+    import.meta.env.VITE_API_URL
+  }/books?rating_gte=4.8&_sort=rating&_order=desc&_limit=4`;
 
   const { books, loading, error } = useBookData(fetchUrl);
 

@@ -25,7 +25,9 @@ function AuthorCarousel() {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch("http://localhost:3001/author?_limit=10");
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/author?_limit=10`
+        );
         if (!res.ok) throw new Error("خطا در بارگذاری نویسندگان");
         const authorsData = await res.json();
         setAuthors(authorsData);

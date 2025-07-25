@@ -19,8 +19,8 @@ function AuthorPage() {
       try {
         // Fetch author details and their books concurrently
         const [authorRes, booksRes] = await Promise.all([
-          fetch(`http://localhost:3001/author/${authorId}`),
-          fetch(`http://localhost:3001/books?authorId=${authorId}`),
+          fetch(`${import.meta.env.VITE_API_URL}/author/${authorId}`),
+          fetch(`${import.meta.env.VITE_API_URL}/books?authorId=${authorId}`),
         ]);
 
         if (!authorRes.ok) {

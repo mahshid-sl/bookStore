@@ -19,7 +19,11 @@ function PopularBooks({ ref }) {
             <ChevronLeft size={20} />
           </Link>
         </div>
-        <BookSlider fetchUrl="http://localhost:3001/books?_sort=rating&_order=desc&_limit=10" />
+        <BookSlider
+          fetchUrl={`${
+            import.meta.env.VITE_API_URL
+          }/books?_sort=rating&_order=desc&_limit=10`}
+        />
       </div>
     </section>
   );
