@@ -154,7 +154,7 @@ function ProfilePage() {
     <div className="bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Breadcrumbs */}
-        <nav className="flex text-sm text-gray-500 mb-8 items-center justify-start">
+        <nav className="flex text-xs sm:text-sm text-gray-500 mb-8 items-center justify-start">
           <Link to="/" className="hover:text-amber-500">
             خانه
           </Link>
@@ -176,7 +176,7 @@ function ProfilePage() {
                   alt="Profile"
                   className="w-24 h-24 object-cover rounded-full"
                 />
-                <h3 className="mt-4 font-bold text-lg">
+                <h3 className="mt-4 font-bold text-md">
                   {watchedFormData.name} {watchedFormData.lastName}
                 </h3>
                 <p className="text-sm text-gray-500">{watchedFormData.email}</p>
@@ -234,21 +234,21 @@ function ProfilePage() {
                       `https://ui-avatars.com/api/?name=${watchedFormData.name}+${watchedFormData.lastName}&background=fb9e22&color=fff`
                     }
                     alt="Profile"
-                    className="w-24 h-24 object-cover rounded-full"
+                    className="w-full object-cover rounded-full"
                   />
                   <button
                     type="button"
                     onClick={handleCameraClick}
                     className="absolute -bottom-2 -left-2 bg-white p-2 rounded-full border shadow-sm hover:bg-gray-100"
                   >
-                    <Camera size={16} className="text-gray-600" />
+                    <Camera className="text-gray-600 w-3 h-3" />
                   </button>
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-800">
+                  <h2 className="text-sm sm:text-md font-bold text-gray-800">
                     اطلاعات حساب کاربری
                   </h2>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1">
                     اطلاعات پروفایل خود را اینجا ویرایش کنید.
                   </p>
                 </div>
