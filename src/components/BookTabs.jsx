@@ -20,7 +20,10 @@ function BookTabs({ book, comments, onCommentSubmit }) {
     <div className="w-full mt-16">
       {/* tabs */}
       <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-1 sm:space-x-4" aria-label="Tabs">
+        <nav
+          className="-mb-px flex space-x-1 sm:space-x-4 text-sm sm:text-md"
+          aria-label="Tabs"
+        >
           <button
             onClick={() => setActiveTab("description")}
             className={`${tabStyles} ${
@@ -49,7 +52,7 @@ function BookTabs({ book, comments, onCommentSubmit }) {
       </div>
 
       {/* tabs content */}
-      <div className="py-8 px-4 sm:px-6 bg-white rounded-b-lg shadow">
+      <div className="py-8 px-4 sm:px-6 bg-white rounded-b-lg shadow text-sm md:text-md">
         {/* description */}
         {activeTab === "description" && (
           <div className="prose max-w-none text-gray-600 leading-loose text-right">

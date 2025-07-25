@@ -37,10 +37,10 @@ function SubscriptionPage() {
     <div className="bg-gray-50">
       {/* Hero Section */}
       <div className="text-center py-16 sm:py-24 bg-white">
-        <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+        <h1 className="text-md sm:text-lg md:text-xl font-extrabold text-gray-900">
           عضویت ویژه بوک استور
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600">
+        <p className="mt-4 max-w-2xl mx-auto text-sm sm:text-md lg:text-lg  text-gray-600 px-2">
           با خرید اشتراک، به دنیایی از کتاب‌های الکترونیک و صوتی دسترسی نامحدود
           داشته باشید.
         </p>
@@ -49,7 +49,7 @@ function SubscriptionPage() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Breadcrumbs */}
-        <nav className="flex text-sm text-gray-500 mb-12 items-center justify-start">
+        <nav className="flex text-xs sm:text-sm text-gray-500 mb-12 items-center justify-start">
           <Link to="/" className="hover:text-amber-500">
             خانه
           </Link>
@@ -76,19 +76,21 @@ function SubscriptionPage() {
                   </span>
                 </div>
               )}
-              <h3 className="text-2xl font-bold text-gray-800">{plan.name}</h3>
-              <p className="mt-4 text-4xl font-extrabold text-gray-900">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-800">
+                {plan.name}
+              </h3>
+              <p className="mt-4 text-lg sm:text-xl font-extrabold text-gray-900">
                 {plan.price}
-                <span className="text-lg font-medium text-gray-500">
+                <span className="text-sm sm:text-md font-medium text-gray-500">
                   {" "}
                   تومان
                 </span>
               </p>
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm sm:text-md text-gray-500">
                 پرداخت به صورت {plan.billingCycle}
               </p>
 
-              <ul className="mt-8 space-y-4 text-right">
+              <ul className="mt-8 space-y-4 text-right text-sm sm:text-md">
                 {plan.features.map((feature, index) => (
                   <li key={index} className="flex items-center gap-3">
                     <CheckCircle className="h-6 w-6 text-green-500 flex-shrink-0" />
@@ -99,11 +101,13 @@ function SubscriptionPage() {
 
               <button
                 onClick={() => setSelectedPlan(plan.name)}
-                className={`mt-10 w-full py-3 px-6 font-bold rounded-lg transition-colors ${
-                  selectedPlan === plan.name
-                    ? "bg-amber-500 text-white"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
+                className={`mt-10 w-full py-3 px-6 font-bold 
+                  text-sm sm:text-md
+                  rounded-lg transition-colors ${
+                    selectedPlan === plan.name
+                      ? "bg-amber-500 text-white"
+                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  }`}
               >
                 {selectedPlan === plan.name ? "انتخاب شده" : "انتخاب طرح"}
               </button>
@@ -113,25 +117,25 @@ function SubscriptionPage() {
 
         {/* FAQ Section for Subscriptions */}
         <div className="mt-20 max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-800">
+          <h2 className="text-md sm:text-xl md:text-2xl font-bold text-gray-800">
             سوالات متداول اشتراک
           </h2>
-          <div className="mt-6 space-y-4 text-right">
+          <div className="mt-6 space-y-4 text-right ">
             <details className="p-4 bg-white rounded-lg shadow-sm cursor-pointer">
-              <summary className="font-semibold">
+              <summary className="font-semibold text-sm sm:text-md md:text-lg">
                 آیا می‌توانم اشتراک خود را لغو کنم؟
               </summary>
-              <p className="mt-2 text-gray-600 leading-relaxed">
+              <p className="mt-2 text-gray-600 leading-relaxed text-sm sm:text-md">
                 بله، شما هر زمان که بخواهید می‌توانید از طریق پنل کاربری خود،
                 تمدید خودکار اشتراک را لغو کنید و تا پایان دوره فعلی از خدمات
                 استفاده نمایید.
               </p>
             </details>
             <details className="p-4 bg-white rounded-lg shadow-sm cursor-pointer">
-              <summary className="font-semibold">
+              <summary className="font-semibold text-sm sm:text-md md:text-lg">
                 پرداخت به چه صورت است؟
               </summary>
-              <p className="mt-2 text-gray-600 leading-relaxed">
+              <p className="mt-2 text-gray-600 leading-relaxed text-sm sm:text-md">
                 پرداخت هزینه اشتراک از طریق تمام کارت‌های عضو شتاب و درگاه
                 پرداخت امن بانکی امکان‌پذیر است.
               </p>

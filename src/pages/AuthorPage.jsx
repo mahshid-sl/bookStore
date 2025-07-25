@@ -63,7 +63,7 @@ function AuthorPage() {
     <div className="bg-gray-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/*breadcrumb*/}
-        <div className="breadcrumb flex text-gray-500 text-sm items-center mb-8 ">
+        <div className="breadcrumb flex text-gray-500 text-xs sm:text-sm items-center mb-8 ">
           <Link to="/" className="text-gray-500 hover:text-amber-500">
             خانه
           </Link>
@@ -82,15 +82,17 @@ function AuthorPage() {
             />
           </div>
           <div className="text-center md:text-right">
-            <h1 className="text-4xl font-extrabold text-gray-900">
+            <h1 className=" text-md sm:text-lg md:text-xl font-extrabold text-gray-900">
               {author.name}
             </h1>
-            <p className="mt-4 text-gray-600 leading-relaxed">{author.bio}</p>
+            <p className="mt-4 text-gray-600 leading-relaxed text-sm sm:text-md lg:text-lg">
+              {author.bio}
+            </p>
           </div>
         </div>
         {/* Books by this Author Section */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-8 text-right">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-8 text-right">
             آثار {author.name}
           </h2>
           {books.length > 0 ? (

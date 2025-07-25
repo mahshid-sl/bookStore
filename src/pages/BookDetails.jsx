@@ -127,7 +127,7 @@ function BookDetails() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Breadcrumbs */}
-      <nav className="flex text-sm text-gray-500 mb-8 items-center">
+      <nav className="flex text-xs sm:text-sm text-gray-500 mb-8 items-center flex-wrap space-y-1">
         {breadcrumbs.map((crumb, index) => (
           <div key={index} className="flex items-center">
             {crumb.path ? (
@@ -159,11 +159,11 @@ function BookDetails() {
 
         {/* middle-col == book info */}
         <div className="flex flex-col space-y-4 text-right mt-4">
-          <h1 className="text-2xl font-extrabold text-gray-900">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-gray-900">
             {book.title}
           </h1>
 
-          <div className="text-gray-600 text-sm flex items-center justify-start gap-2">
+          <div className="text-gray-600 text-xs sm:text-sm flex items-center justify-start gap-2">
             {book.isAudiobook ? (
               <FileAudio size={16} />
             ) : (
@@ -177,16 +177,23 @@ function BookDetails() {
               to={`/author/${book.author.id}`}
               className="text-sm text-gray-600 underline"
             >
-              <span className="text-gray-600">نویسنده:</span>
-              <span className="text-gray-900"> {book.author.name}</span>
+              <span className="text-gray-600 text-xs sm:text-sm">نویسنده:</span>
+              <span className="text-gray-900 text-xs sm:text-sm">
+                {" "}
+                {book.author.name}
+              </span>
             </Link>
           )}
           {book.isAudiobook && book.narrator && (
-            <h2 className="text-md text-gray-500">راوی: {book.narrator}</h2>
+            <h2 className="text-md text-gray-500 text-xs sm:text-sm">
+              راوی: {book.narrator}
+            </h2>
           )}
-          <h2 className="text-md text-gray-500">ناشر: {book.publisher}</h2>
+          <h2 className="text-md text-gray-500 text-xs sm:text-sm">
+            ناشر: {book.publisher}
+          </h2>
 
-          <p className="text-gray-600 leading-relaxed pt-4 line-clamp-3">
+          <p className="text-gray-600 leading-relaxed pt-4 line-clamp-3 text-xs sm:text-sm md:text-md">
             {book.previewText}
           </p>
         </div>
@@ -194,14 +201,14 @@ function BookDetails() {
         {/* third-col== price info*/}
         <div className="flex flex-col space-y-6 mt-4">
           <div className="bg-white p-6 rounded-lg shadow-md ">
-            <p className="text-3xl font-bold text-gray-900 text-left my-2">
+            <p className="text-2xl font-bold text-gray-900 text-left my-2">
               {book.price.toLocaleString()}{" "}
               <span className="text-lg font-normal">تومان</span>
             </p>
             <div className="flex flex-col gap-3 mt-4">
               <button
                 onClick={() => addToCart(book)}
-                className="w-full text-center bg-amber-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-amber-600 transition"
+                className="w-full text-center bg-amber-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-amber-600 transition text-sm md:text-md"
               >
                 افزودن به سبد خرید
               </button>
@@ -209,7 +216,7 @@ function BookDetails() {
                 <a
                   href={book.downloadLink}
                   download={`${book.title}-sample`}
-                  className="w-full text-center bg-gray-100 text-gray-800 font-bold px-6 py-3 rounded-lg hover:bg-gray-200 transition"
+                  className="w-full text-center bg-gray-100 text-gray-800 font-bold px-6 py-3 rounded-lg hover:bg-gray-200 transition text-sm md:text-md"
                 >
                   دریافت نمونه
                 </a>
@@ -217,12 +224,12 @@ function BookDetails() {
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <button className="p-3 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors">
-              <MessageCircleQuestion size={20} />
+            <button className="p-3 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors text-sm md:text-md">
+              <MessageCircleQuestion className="w-4 h-4" />
             </button>
 
-            <button className="p-3 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors">
-              <HeartIcon size={20} />
+            <button className="p-3 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors text-sm md:text-md">
+              <HeartIcon className="w-4 h-4" />
             </button>
 
             <div className="flex items-center gap-2">
@@ -236,8 +243,8 @@ function BookDetails() {
                     size={20}
                     className={
                       i < Math.round(book.rating)
-                        ? "text-amber-400 fill-current"
-                        : "text-gray-300"
+                        ? "text-amber-400 fill-current  w-4 h-4"
+                        : "text-gray-300 w-4 h-4"
                     }
                   />
                 ))}
