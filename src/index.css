@@ -42,11 +42,6 @@
    --color-cream: '#ffddb4',
    --color-dark: '#111111',
 
-/* custom breakpoints */
-
-   --breakpoint-2xs: 375px; /* Very small devices (small phones) */
-  --breakpoint-xs: 425px; /* Extra small devices (phones) */
-
 }
 
 
